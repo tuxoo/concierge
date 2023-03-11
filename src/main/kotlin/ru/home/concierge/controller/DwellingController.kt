@@ -29,7 +29,7 @@ class DwellingController(
     fun updateDwelling(
         @PathVariable streetId: String,
         @PathVariable id: Int,
-        @RequestParam("floorNumber", required = true) floorNumber: Int?,
+        @RequestParam("floorNumber") floorNumber: Int?,
     ) = dwellingService.update(id, floorNumber)
 
     @DeleteMapping("/{id}")

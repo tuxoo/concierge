@@ -24,9 +24,11 @@ class Street(
     @Column(name = "city", length = 255, nullable = false)
     val city: City,
 
-    @CreatedDate
     @Column(name = "created_at", updatable = false)
     val createdAt: Instant = Instant.now(),
+
+    @Column(name = "last_modified_at")
+    val lastModifiedAt: Instant = Instant.now(),
 
     @OneToMany(mappedBy = "street")
     val dwellings: List<Dwelling>? = null,

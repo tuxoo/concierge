@@ -26,9 +26,11 @@ class Dwelling(
     @Column(name = "floor_number", nullable = false)
     val floorNumber: Int,
 
-    @CreatedDate
     @Column(name = "created_at", updatable = false)
     val createdAt: Instant = Instant.now(),
+
+    @Column(name = "last_modified_at")
+    val lastModifiedAt: Instant = Instant.now(),
 
     @OneToMany(mappedBy = "dwelling")
     val floors: List<Floor>? = null,

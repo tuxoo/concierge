@@ -20,12 +20,17 @@ class Floor(
     @Column(name = "number", nullable = false)
     val number: Int,
 
-    @CreatedDate
+    @Column(name = "apartment_number", nullable = false)
+    val apartmentNumber: Int,
+
     @Column(name = "created_at", updatable = false)
     val createdAt: Instant = Instant.now(),
 
+    @Column(name = "last_modified_at")
+    val lastModifiedAt: Instant = Instant.now(),
+
     @OneToMany(mappedBy = "floor")
-    val apartments: List<Apartment>,
+    val apartments: List<Apartment>? = null,
 
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)

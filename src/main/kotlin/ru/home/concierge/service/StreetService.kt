@@ -5,6 +5,7 @@ import ru.home.concierge.model.dto.StreetDto
 import ru.home.concierge.model.entity.Street
 import ru.home.concierge.model.enums.City
 import ru.home.concierge.repository.StreetRepository
+import java.time.Instant
 
 @Service
 class StreetService(
@@ -20,9 +21,9 @@ class StreetService(
             StreetDto(
                 id = it.id,
                 name = it.name,
-                city = it.city.shortName,
+                city = it.city.getShortName(),
                 createdAt = it.createdAt,
-                )
+            )
         }
 
     fun getById(id: Int): StreetDto =
@@ -30,7 +31,7 @@ class StreetService(
             StreetDto(
                 id = this.id,
                 name = this.name,
-                city = this.city.shortName,
+                city = this.city.getShortName(),
                 createdAt = this.createdAt,
             )
         }
@@ -39,13 +40,16 @@ class StreetService(
         error("the street not found by id $id")
     }
 
-    fun update(id: Int, name: String, city: String) {
+    fun update(id: Int, name: String?, city: String?) {
         streetRepository.save(
-            Street(
-                id = id,
-                name = name,
-                city = City.fromShortName(city)
-            )
+            findById(id).run {
+                Street(
+                    id = this.id,
+                    name = name ?: this.name,
+                    city = if (city != null) City.fromShortName(city) else this.city,
+                    lastModifiedAt = Instant.now(),
+                )
+            }
         )
     }
 

@@ -32,9 +32,11 @@ class Apartment(
     @Column(name = "owner", length = 255, nullable = false)
     val owner: String,
 
-    @CreatedDate
     @Column(name = "created_at", updatable = false)
     val createdAt: Instant = Instant.now(),
+
+    @Column(name = "last_modified_at")
+    val lastModifiedAt: Instant = Instant.now(),
 
     @OneToMany(mappedBy = "apartment")
     val heating: List<Heating>,

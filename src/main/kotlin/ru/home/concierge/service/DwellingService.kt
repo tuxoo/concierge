@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional
 import ru.home.concierge.model.dto.DwellingDto
 import ru.home.concierge.model.entity.Dwelling
 import ru.home.concierge.repository.DwellingRepository
+import java.time.Instant
 
 @Service
 class DwellingService(
@@ -19,6 +20,7 @@ class DwellingService(
         }
     }
 
+    @Transactional(readOnly = true)
     fun getAll(streetId: Int): List<DwellingDto> =
         streetService.findById(streetId).run {
             dwellingRepository.findAllByStreet(this).map {
@@ -42,7 +44,7 @@ class DwellingService(
         }
 
     fun findById(id: Int): Dwelling = dwellingRepository.findById(id).orElseThrow {
-        error("the street not found by id $id")
+        error("the dwelling not found by id $id")
     }
 
     @Transactional
@@ -55,6 +57,7 @@ class DwellingService(
                     floorNumber = floorNumber ?: this.floorNumber,
                     createdAt = this.createdAt,
                     street = this.street,
+                    lastModifiedAt = Instant.now(),
                 )
             }
         )

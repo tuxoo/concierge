@@ -20,9 +20,11 @@ class Heating(
     @Column(name = "measure", nullable = false)
     val measure: Double,
 
-    @CreatedDate
     @Column(name = "created_at", updatable = false)
     val createdAt: Instant = Instant.now(),
+
+    @Column(name = "last_modified_at")
+    val lastModifiedAt: Instant = Instant.now(),
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "month_id", nullable = false)
