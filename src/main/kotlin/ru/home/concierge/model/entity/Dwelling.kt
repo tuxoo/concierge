@@ -19,7 +19,7 @@ class Dwelling(
     val id: Int? = null,
 
     @NotEmpty
-    @Column(name = "number", length = 15, nullable = false)
+    @Column(name = "number", length = 15, nullable = false, updatable = false)
     val number: String,
 
     @Min(1)

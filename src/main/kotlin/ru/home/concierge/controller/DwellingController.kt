@@ -3,7 +3,6 @@ package ru.home.concierge.controller
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import ru.home.concierge.model.dto.DwellingDto
-import ru.home.concierge.model.dto.StreetDto
 import ru.home.concierge.service.DwellingService
 import javax.validation.Valid
 
@@ -23,10 +22,17 @@ class DwellingController(
         dwellingService.getAll(streetId)
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable streetId: Int, @PathVariable id: Int): DwellingDto =
+    fun getDwellingById(@PathVariable streetId: Int, @PathVariable id: Int): DwellingDto =
         dwellingService.getById(id)
 
+    @PutMapping("/{id}")
+    fun updateDwelling(
+        @PathVariable streetId: String,
+        @PathVariable id: Int,
+        @RequestParam("floorNumber", required = true) floorNumber: Int?,
+    ) = dwellingService.update(id, floorNumber)
+
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable streetId: String, @PathVariable id: Int) =
+    fun deleteDwelling(@PathVariable streetId: String, @PathVariable id: Int) =
         dwellingService.delete(id)
 }

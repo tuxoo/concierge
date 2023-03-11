@@ -3,10 +3,7 @@ package ru.home.concierge.service
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.home.concierge.model.dto.DwellingDto
-import ru.home.concierge.model.dto.StreetDto
 import ru.home.concierge.model.entity.Dwelling
-import ru.home.concierge.model.entity.Street
-import ru.home.concierge.model.enums.City
 import ru.home.concierge.repository.DwellingRepository
 
 @Service
@@ -48,15 +45,20 @@ class DwellingService(
         error("the street not found by id $id")
     }
 
-//    fun update(id: Int, name: String, city: String) {
-//        streetRepository.save(
-//            Street(
-//                id = id,
-//                name = name,
-//                city = City.fromShortName(city)
-//            )
-//        )
-//    }
+    @Transactional
+    fun update(id: Int, floorNumber: Int?) {
+        dwellingRepository.save(
+            findById(id).run {
+                Dwelling(
+                    id = this.id,
+                    number = this.number,
+                    floorNumber = floorNumber ?: this.floorNumber,
+                    createdAt = this.createdAt,
+                    street = this.street,
+                )
+            }
+        )
+    }
 
     fun delete(id: Int) = dwellingRepository.deleteById(id)
 }

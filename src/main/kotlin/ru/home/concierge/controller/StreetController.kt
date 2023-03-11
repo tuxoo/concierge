@@ -22,14 +22,17 @@ class StreetController(
         streetService.getAll()
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: Int): StreetDto =
+    fun getStreetById(@PathVariable id: Int): StreetDto =
         streetService.getById(id)
 
-    @PatchMapping("/{id}")
-    fun updateStreet(@PathVariable id: Int, @RequestParam("name") name: String, @RequestParam("city") city: String) =
-        streetService.update(id, name, city)
+    @PutMapping("/{id}")
+    fun updateStreet(
+        @PathVariable id: Int,
+        @RequestParam("name") name: String?,
+        @RequestParam("city") city: String?,
+    ) = streetService.update(id, name, city)
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id: Int) =
+    fun deleteStreet(@PathVariable id: Int) =
         streetService.delete(id)
 }

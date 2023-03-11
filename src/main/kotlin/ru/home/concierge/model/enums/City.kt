@@ -1,7 +1,9 @@
 package ru.home.concierge.model.enums
 
+import ru.home.concierge.model.dto.CityDto
+
 enum class City(
-    val shortName: String
+    private val shortName: String
 ) {
     VORONEZH("VRN"),
     MOSCOW("MSK");
@@ -12,4 +14,11 @@ enum class City(
                 it.shortName == city
             } ?: error("Unsupported city")
     }
+
+    fun toDto() = CityDto(
+        name = this.name,
+        shortName = this.shortName,
+    )
+
+    fun getShortName() = this.shortName
 }
