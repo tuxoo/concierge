@@ -15,7 +15,7 @@ class Floor(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int,
+    val id: Int? = null,
 
     @Column(name = "number", nullable = false)
     val number: Int,

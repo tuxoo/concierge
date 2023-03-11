@@ -6,5 +6,4 @@ import ru.home.concierge.model.entity.Street
 
 @Repository
 interface StreetRepository : JpaRepository<Street, Int> {
-
 }

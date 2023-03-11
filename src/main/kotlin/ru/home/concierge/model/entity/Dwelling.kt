@@ -16,7 +16,7 @@ class Dwelling(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int,
+    val id: Int? = null,
 
     @NotEmpty
     @Column(name = "number", length = 15, nullable = false)
@@ -31,7 +31,7 @@ class Dwelling(
     val createdAt: Instant = Instant.now(),
 
     @OneToMany(mappedBy = "dwelling")
-    val floors: List<Floor>,
+    val floors: List<Floor>? = null,
 
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)

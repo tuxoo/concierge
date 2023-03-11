@@ -11,32 +11,35 @@ class StreetService(
     private val streetRepository: StreetRepository,
 ) {
 
-    fun createStreet(streetDto: StreetDto) {
+    fun create(streetDto: StreetDto) {
         streetRepository.save(streetDto.toEntity())
     }
 
-    fun getAllStreets(): List<StreetDto> =
+    fun getAll(): List<StreetDto> =
         streetRepository.findAll().map {
             StreetDto(
                 id = it.id,
                 name = it.name,
                 city = it.city.shortName,
                 createdAt = it.createdAt,
-
-            )
+                )
         }
 
     fun getById(id: Int): StreetDto =
-        streetRepository.findById(id).map {
+        findById(id).run {
             StreetDto(
-                id = it.id,
-                name = it.name,
-                city = it.city.shortName,
-                createdAt = it.createdAt,
+                id = this.id,
+                name = this.name,
+                city = this.city.shortName,
+                createdAt = this.createdAt,
             )
-        }.orElseThrow()
+        }
 
-    fun updateStreet(id: Int, name: String, city: String) {
+    fun findById(id: Int): Street = streetRepository.findById(id).orElseThrow {
+        error("the street not found by id $id")
+    }
+
+    fun update(id: Int, name: String, city: String) {
         streetRepository.save(
             Street(
                 id = id,
@@ -46,5 +49,5 @@ class StreetService(
         )
     }
 
-    fun deleteStreet(id: Int) = streetRepository.deleteById(id)
+    fun delete(id: Int) = streetRepository.deleteById(id)
 }

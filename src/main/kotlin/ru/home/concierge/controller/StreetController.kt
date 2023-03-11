@@ -3,7 +3,6 @@ package ru.home.concierge.controller
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import ru.home.concierge.model.dto.StreetDto
-import ru.home.concierge.model.entity.Street
 import ru.home.concierge.service.StreetService
 import javax.validation.Valid
 
@@ -16,12 +15,11 @@ class StreetController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createStreet(@Valid @RequestBody streetDto: StreetDto) =
-        streetService.createStreet(streetDto)
+        streetService.create(streetDto)
 
     @GetMapping
     fun getAllStreets(): List<StreetDto> =
-        streetService.getAllStreets()
-
+        streetService.getAll()
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Int): StreetDto =
@@ -29,9 +27,9 @@ class StreetController(
 
     @PatchMapping("/{id}")
     fun updateStreet(@PathVariable id: Int, @RequestParam("name") name: String, @RequestParam("city") city: String) =
-        streetService.updateStreet(id, name, city)
+        streetService.update(id, name, city)
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: Int) =
-        streetService.deleteStreet(id)
+        streetService.delete(id)
 }

@@ -18,7 +18,7 @@ class Apartment(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int,
+    val id: Int? = null,
 
     @Min(0)
     @Column(name = "number", nullable = false)

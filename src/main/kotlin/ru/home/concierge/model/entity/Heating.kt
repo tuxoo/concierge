@@ -15,7 +15,7 @@ class Heating(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int,
+    val id: Int? = null,
 
     @Column(name = "measure", nullable = false)
     val measure: Double,
