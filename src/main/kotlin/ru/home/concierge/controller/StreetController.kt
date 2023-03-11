@@ -14,25 +14,27 @@ class StreetController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createStreet(@Valid @RequestBody streetDto: StreetDto) =
-        streetService.create(streetDto)
+    fun createStreet(
+        @Valid @RequestBody streetDto: StreetDto,
+    ): Unit = streetService.create(streetDto)
 
     @GetMapping
-    fun getAllStreets(): List<StreetDto> =
-        streetService.getAll()
+    fun getAllStreets(): List<StreetDto> = streetService.getAll()
 
     @GetMapping("/{id}")
-    fun getStreetById(@PathVariable id: Int): StreetDto =
-        streetService.getById(id)
+    fun getStreetById(
+        @PathVariable id: Int,
+    ): StreetDto = streetService.getById(id)
 
     @PutMapping("/{id}")
     fun updateStreet(
         @PathVariable id: Int,
         @RequestParam("name") name: String?,
         @RequestParam("city") city: String?,
-    ) = streetService.update(id, name, city)
+    ): Unit = streetService.update(id, name, city)
 
     @DeleteMapping("/{id}")
-    fun deleteStreet(@PathVariable id: Int) =
-        streetService.delete(id)
+    fun deleteStreet(
+        @PathVariable id: Int,
+    ): Unit = streetService.delete(id)
 }

@@ -14,44 +14,46 @@ class FloorService(
 ) {
 
     @Transactional
-    fun createAll(dwellingId: Int, floorsDto: Array<FloorDto>) {
-        floorsDto.forEach {
-            dwellingService.findById(dwellingId).run {
+    fun createAll(streetId: Int, dwellingId: Int, floorsDto: Array<FloorDto>) {
+        dwellingService.findByStreetIdAndId(streetId, dwellingId).run {
+            floorsDto.forEach {
                 floorRepository.save(it.toEntity(this))
             }
         }
     }
 
-    fun getAll(dwellingId: Int): List<FloorDto> =
-        dwellingService.findById(dwellingId).run {
+    fun getAll(streetId: Int, dwellingId: Int): List<FloorDto> =
+        dwellingService.findByStreetIdAndId(streetId, dwellingId).run {
             floorRepository.findAllByDwelling(this).map {
                 FloorDto(
                     id = it.id,
                     number = it.number,
                     apartmentNumber = it.apartmentNumber,
                     createdAt = it.createdAt,
+                    lastModifiedAt = it.lastModifiedAt,
                 )
             }
         }
 
-    fun getById(id: Int): FloorDto =
-        findById(id).run {
+    fun getById(streetId: Int, dwellingId: Int, id: Int): FloorDto =
+        findByStreetIdAndDwellingIdAndId(streetId, dwellingId, id).run {
             FloorDto(
                 id = this.id,
                 number = this.number,
                 apartmentNumber = this.apartmentNumber,
                 createdAt = this.createdAt,
+                lastModifiedAt = this.lastModifiedAt,
             )
         }
 
-    fun findById(id: Int): Floor = floorRepository.findById(id).orElseThrow {
-        error("the floor not found by id $id")
+    fun findByStreetIdAndDwellingIdAndId(streetId: Int, dwellingId: Int, id: Int): Floor {
+        val dwelling = dwellingService.findByStreetIdAndId(streetId, dwellingId)
+        return dwelling.floors?.find { it.id == id } ?: error("the unknown floor with id [$id]")
     }
 
-    @Transactional
-    fun update(id: Int, apartmentNumber: Int?) {
+    fun update(streetId: Int, dwellingId: Int, id: Int, apartmentNumber: Int?) {
         floorRepository.save(
-            findById(id).run {
+            findByStreetIdAndDwellingIdAndId(streetId, dwellingId, id).run {
                 Floor(
                     id = this.id,
                     number = this.number,
@@ -64,5 +66,8 @@ class FloorService(
         )
     }
 
-    fun delete(id: Int) = floorRepository.deleteById(id)
+    fun delete(streetId: Int, dwellingId: Int, id: Int) =
+        dwellingService.findByStreetIdAndId(streetId, dwellingId).run {
+            floorRepository.deleteById(id)
+        }
 }

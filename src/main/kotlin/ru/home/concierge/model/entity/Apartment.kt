@@ -2,13 +2,11 @@ package ru.home.concierge.model.entity
 
 import lombok.Getter
 import lombok.Setter
-import org.springframework.data.annotation.CreatedDate
 import ru.home.concierge.model.enums.ApartmentType
 import java.time.Instant
 import javax.persistence.*
 import javax.validation.constraints.Min
 import javax.validation.constraints.NotEmpty
-import javax.validation.constraints.NotNull
 
 @Getter
 @Setter
@@ -25,12 +23,12 @@ class Apartment(
     val number: Int,
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false)
-    val type: ApartmentType,
+    @Column(name = "type", nullable = true)
+    val type: ApartmentType?,
 
     @NotEmpty
-    @Column(name = "owner", length = 255, nullable = false)
-    val owner: String,
+    @Column(name = "owner", length = 255, nullable = true)
+    val owner: String?,
 
     @Column(name = "created_at", updatable = false)
     val createdAt: Instant = Instant.now(),
@@ -39,7 +37,7 @@ class Apartment(
     val lastModifiedAt: Instant = Instant.now(),
 
     @OneToMany(mappedBy = "apartment")
-    val heating: List<Heating>,
+    val heating: List<Heating>? = null,
 
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)

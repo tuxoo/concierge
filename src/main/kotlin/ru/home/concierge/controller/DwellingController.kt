@@ -14,25 +14,32 @@ class DwellingController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createDwelling(@PathVariable streetId: Int, @Valid @RequestBody dwellingDto: DwellingDto) =
-        dwellingService.create(streetId, dwellingDto)
+    fun createDwelling(
+        @PathVariable streetId: Int,
+        @Valid @RequestBody dwellingDto: DwellingDto,
+    ): Unit = dwellingService.create(streetId, dwellingDto)
 
     @GetMapping
-    fun getAllDwellings(@PathVariable streetId: Int): List<DwellingDto> =
-        dwellingService.getAll(streetId)
+    fun getAllDwellings(
+        @PathVariable streetId: Int,
+    ): List<DwellingDto> = dwellingService.getAll(streetId)
 
     @GetMapping("/{id}")
-    fun getDwellingById(@PathVariable streetId: Int, @PathVariable id: Int): DwellingDto =
-        dwellingService.getById(id)
+    fun getDwellingById(
+        @PathVariable streetId: Int,
+        @PathVariable id: Int,
+    ): DwellingDto = dwellingService.getById(id)
 
     @PutMapping("/{id}")
     fun updateDwelling(
         @PathVariable streetId: String,
         @PathVariable id: Int,
         @RequestParam("floorNumber") floorNumber: Int?,
-    ) = dwellingService.update(id, floorNumber)
+    ): Unit = dwellingService.update(id, floorNumber)
 
     @DeleteMapping("/{id}")
-    fun deleteDwelling(@PathVariable streetId: String, @PathVariable id: Int) =
-        dwellingService.delete(id)
+    fun deleteDwelling(
+        @PathVariable streetId: String,
+        @PathVariable id: Int,
+    ): Unit = dwellingService.delete(id)
 }

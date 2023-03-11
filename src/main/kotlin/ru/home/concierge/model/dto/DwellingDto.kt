@@ -1,5 +1,6 @@
 package ru.home.concierge.model.dto
 
+import org.springframework.data.annotation.LastModifiedBy
 import ru.home.concierge.model.entity.Dwelling
 import ru.home.concierge.model.entity.Street
 import java.time.Instant
@@ -19,6 +20,8 @@ data class DwellingDto(
     val floorNumber: Int?,
 
     val createdAt: Instant?,
+
+    val lastModifiedAt: Instant?,
 ) {
 
     fun toEntity(street: Street) = Dwelling(

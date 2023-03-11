@@ -7,7 +7,6 @@ import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
 data class StreetDto(
-
     val id: Int?,
 
     @field:NotNull
@@ -19,6 +18,8 @@ data class StreetDto(
     val city: String?,
 
     val createdAt: Instant?,
+
+    val lastModifiedAt: Instant?,
 ) {
 
     fun toEntity() = Street(

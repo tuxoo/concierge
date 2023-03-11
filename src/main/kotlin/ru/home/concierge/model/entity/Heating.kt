@@ -2,7 +2,6 @@ package ru.home.concierge.model.entity
 
 import lombok.Getter
 import lombok.Setter
-import org.springframework.data.annotation.CreatedDate
 import java.time.Instant
 import javax.persistence.*
 import javax.validation.constraints.NotEmpty

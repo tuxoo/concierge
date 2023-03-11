@@ -18,6 +18,8 @@ data class FloorDto(
     val apartmentNumber: Int?,
 
     val createdAt: Instant?,
+
+    val lastModifiedAt: Instant?,
 ) {
 
     fun toEntity(dwelling: Dwelling) = Floor(

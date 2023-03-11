@@ -2,14 +2,12 @@ package ru.home.concierge.controller
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
-import ru.home.concierge.model.dto.DwellingDto
 import ru.home.concierge.model.dto.FloorDto
-import ru.home.concierge.model.dto.StreetDto
 import ru.home.concierge.service.FloorService
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/api/v1/dwelling/{dwellingId}/floor")
+@RequestMapping("/api/v1/street/{streetId}/dwelling/{dwellingId}/floor")
 class FloorController(
     private val floorService: FloorService,
 ) {
@@ -17,26 +15,36 @@ class FloorController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createFloors(
+        @PathVariable streetId: Int,
         @PathVariable dwellingId: Int,
         @Valid @RequestBody floorsDto: Array<FloorDto>,
-    ) = floorService.createAll(dwellingId, floorsDto)
+    ): Unit = floorService.createAll(streetId, dwellingId, floorsDto)
 
     @GetMapping
-    fun getAllFloors(@PathVariable dwellingId: Int): List<FloorDto> =
-        floorService.getAll(dwellingId)
+    fun getAllFloors(
+        @PathVariable streetId: Int,
+        @PathVariable dwellingId: Int,
+    ): List<FloorDto> = floorService.getAll(streetId, dwellingId)
 
     @GetMapping("/{id}")
-    fun getDwellingById(@PathVariable dwellingId: Int, @PathVariable id: Int): FloorDto =
-        floorService.getById(id)
+    fun getDwellingById(
+        @PathVariable streetId: Int,
+        @PathVariable dwellingId: Int,
+        @PathVariable id: Int,
+    ): FloorDto = floorService.getById(streetId, dwellingId, id)
 
     @PutMapping("/{id}")
     fun updateDwelling(
+        @PathVariable streetId: Int,
         @PathVariable dwellingId: Int,
         @PathVariable id: Int,
         @RequestParam("apartmentNumber") apartmentNumber: Int?,
-    ) = floorService.update(id, apartmentNumber)
+    ): Unit = floorService.update(streetId, dwellingId, id, apartmentNumber)
 
     @DeleteMapping("/{id}")
-    fun deleteDwelling(@PathVariable dwellingId: Int, @PathVariable id: Int) =
-        floorService.delete(id)
+    fun deleteDwelling(
+        @PathVariable streetId: Int,
+        @PathVariable dwellingId: Int,
+        @PathVariable id: Int,
+    ): Unit = floorService.delete(streetId, dwellingId, id)
 }

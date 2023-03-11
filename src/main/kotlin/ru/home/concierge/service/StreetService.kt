@@ -23,6 +23,7 @@ class StreetService(
                 name = it.name,
                 city = it.city.getShortName(),
                 createdAt = it.createdAt,
+                lastModifiedAt = it.lastModifiedAt,
             )
         }
 
@@ -33,6 +34,7 @@ class StreetService(
                 name = this.name,
                 city = this.city.getShortName(),
                 createdAt = this.createdAt,
+                lastModifiedAt = this.lastModifiedAt,
             )
         }
 
