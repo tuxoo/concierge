@@ -1,0 +1,41 @@
+debug: ${SPRING_DEBUG:false}
+server:
+  port: ${APP_PORT:8080}
+  forward-headers-strategy: framework
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 25
+      minimum-idle: 2
+      idle-timeout: 300000
+      max-lifetime: 120000
+    url: ${POSTGRES_URL}?currentSchema=${POSTGRES_SCHEMA}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  application:
+    name: ${APPLICATION_NAME}
+  jpa:
+    show-sql: ${SPRING_DEBUG:false}
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: ${SERVER_TIMEZONE:UTC}
+    hibernate:
+      ddl-auto: update
+
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+    path: /swagger-ui/v3/api-docs
+  swagger-ui:
+    path: /swagger-ui/swagger-ui.html
+
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
