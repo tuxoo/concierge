@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import ru.home.concierge.model.dto.ApartmentDto
 import ru.home.concierge.model.entity.Apartment
 import ru.home.concierge.model.enums.ApartmentType
+import ru.home.concierge.model.exception.NotFoundException
 import ru.home.concierge.repository.ApartmentRepository
 import java.time.Instant
 
@@ -27,7 +28,7 @@ class ApartmentService(
                 createdAt = it.createdAt,
                 lastModifiedAt = it.lastModifiedAt,
             )
-        } ?: error("apartments not found")
+        } ?: emptyList()
 
     fun getById(streetId: Int, dwellingId: Int, floorId: Int, id: Int): ApartmentDto {
         val apartment = floorService.findByStreetIdAndDwellingIdAndId(streetId, dwellingId, floorId).apartments?.find {
@@ -44,10 +45,10 @@ class ApartmentService(
         )
     }
 
-    fun findByStreetIdAndDwellingIdAndFloorIdAndId(streetId: Int, dwellingId: Int, floorId: Int, id: Int): Apartment {
-        val floor = floorService.findByStreetIdAndDwellingIdAndId(streetId, dwellingId, floorId)
-        return floor.apartments?.find { it.id == id } ?: error("the unknown floor with id [$id]")
-    }
+    fun findByStreetIdAndDwellingIdAndFloorIdAndId(streetId: Int, dwellingId: Int, floorId: Int, id: Int): Apartment =
+        floorService.findByStreetIdAndDwellingIdAndId(streetId, dwellingId, floorId).apartments?.find {
+            it.id == id
+        } ?: throw NotFoundException("The Apartment not found by id [$id]")
 
     fun update(
         streetId: Int,

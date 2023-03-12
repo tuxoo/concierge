@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service
 import ru.home.concierge.model.dto.StreetDto
 import ru.home.concierge.model.entity.Street
 import ru.home.concierge.model.enums.City
+import ru.home.concierge.model.exception.NotFoundException
 import ru.home.concierge.repository.StreetRepository
 import java.time.Instant
 
@@ -39,7 +40,7 @@ class StreetService(
         }
 
     fun findById(id: Int): Street = streetRepository.findById(id).orElseThrow {
-        error("the street not found by id $id")
+        NotFoundException("The street not found by id [$id]")
     }
 
     fun update(id: Int, name: String?, city: String?) {

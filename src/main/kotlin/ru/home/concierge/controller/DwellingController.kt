@@ -28,18 +28,18 @@ class DwellingController(
     fun getDwellingById(
         @PathVariable streetId: Int,
         @PathVariable id: Int,
-    ): DwellingDto = dwellingService.getById(id)
+    ): DwellingDto = dwellingService.getById(streetId, id)
 
     @PutMapping("/{id}")
     fun updateDwelling(
-        @PathVariable streetId: String,
+        @PathVariable streetId: Int,
         @PathVariable id: Int,
         @RequestParam("floorNumber") floorNumber: Int?,
-    ): Unit = dwellingService.update(id, floorNumber)
+    ): Unit = dwellingService.update(streetId, id, floorNumber)
 
     @DeleteMapping("/{id}")
     fun deleteDwelling(
-        @PathVariable streetId: String,
+        @PathVariable streetId: Int,
         @PathVariable id: Int,
-    ): Unit = dwellingService.delete(id)
+    ): Unit = dwellingService.delete(streetId, id)
 }
