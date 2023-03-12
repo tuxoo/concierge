@@ -26,10 +26,10 @@ class Floor(
     val createdAt: Instant = Instant.now(),
 
     @Column(name = "last_modified_at")
-    val lastModifiedAt: Instant = Instant.now(),
+    val lastModifiedAt: Instant,
 
     @OneToMany(mappedBy = "floor")
-    val apartments: List<Apartment>? = null,
+    val apartments: List<Apartment> = emptyList(),
 
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)

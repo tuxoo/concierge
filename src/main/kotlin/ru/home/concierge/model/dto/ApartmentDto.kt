@@ -5,7 +5,6 @@ import ru.home.concierge.model.entity.Floor
 import ru.home.concierge.model.enums.ApartmentType
 import java.time.Instant
 import javax.validation.constraints.Min
-import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
 data class ApartmentDto(
@@ -17,6 +16,8 @@ data class ApartmentDto(
 
     val owner: String?,
 
+    val phone: String?,
+
     val type: String?,
 
     val createdAt: Instant?,
@@ -27,7 +28,7 @@ data class ApartmentDto(
     fun toEntity(floor: Floor) = Apartment(
         number = this.number!!,
         type = if (type != null) ApartmentType.valueOf(this.type) else null,
-        owner = this.owner,
+        lastModifiedAt = Instant.now(),
         floor = floor,
     )
 }

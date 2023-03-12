@@ -1,5 +1,7 @@
 package ru.home.concierge.controller
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import ru.home.concierge.model.dto.DwellingDto
@@ -22,7 +24,8 @@ class DwellingController(
     @GetMapping
     fun getAllDwellings(
         @PathVariable streetId: Int,
-    ): List<DwellingDto> = dwellingService.getAll(streetId)
+        pageable: Pageable,
+    ): Page<DwellingDto> = dwellingService.getAll(streetId, pageable)
 
     @GetMapping("/{id}")
     fun getDwellingById(
@@ -35,7 +38,9 @@ class DwellingController(
         @PathVariable streetId: Int,
         @PathVariable id: Int,
         @RequestParam("floorNumber") floorNumber: Int?,
-    ): Unit = dwellingService.update(streetId, id, floorNumber)
+        @RequestParam("startMeasuringDay") startMeasuringDay: Int?,
+        @RequestParam("stopMeasuringDay") stopMeasuringDay: Int?,
+    ): Unit = dwellingService.update(streetId, id, floorNumber, startMeasuringDay, stopMeasuringDay)
 
     @DeleteMapping("/{id}")
     fun deleteDwelling(

@@ -20,11 +20,14 @@ data class FloorDto(
     val createdAt: Instant?,
 
     val lastModifiedAt: Instant?,
+
+    val apartments: List<ApartmentDto> = emptyList(),
 ) {
 
     fun toEntity(dwelling: Dwelling) = Floor(
         number = this.number!!,
         apartmentNumber = this.apartmentNumber!!,
+        lastModifiedAt = Instant.now(),
         dwelling = dwelling,
     )
 }

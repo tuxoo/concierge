@@ -1,5 +1,7 @@
 package ru.home.concierge.controller
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import ru.home.concierge.model.dto.StreetDto
@@ -19,7 +21,7 @@ class StreetController(
     ): Unit = streetService.create(streetDto)
 
     @GetMapping
-    fun getAllStreets(): List<StreetDto> = streetService.getAll()
+    fun getAllStreets(pageable: Pageable): Page<StreetDto> = streetService.getAll(pageable)
 
     @GetMapping("/{id}")
     fun getStreetById(
@@ -31,7 +33,7 @@ class StreetController(
         @PathVariable id: Int,
         @RequestParam("name") name: String?,
         @RequestParam("city") city: String?,
-    ): Unit = streetService.update(id, name, city)
+    ): Unit = streetService.updateById(id, name, city)
 
     @DeleteMapping("/{id}")
     fun deleteStreet(

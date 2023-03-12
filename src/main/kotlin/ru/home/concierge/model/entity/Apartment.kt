@@ -26,18 +26,20 @@ class Apartment(
     @Column(name = "type", nullable = true)
     val type: ApartmentType?,
 
-    @NotEmpty
     @Column(name = "owner", length = 255, nullable = true)
-    val owner: String?,
+    val owner: String? = null,
+
+    @Column(name = "phone", length = 15, nullable = true)
+    val phone: String? = null,
 
     @Column(name = "created_at", updatable = false)
     val createdAt: Instant = Instant.now(),
 
     @Column(name = "last_modified_at")
-    val lastModifiedAt: Instant = Instant.now(),
+    val lastModifiedAt: Instant,
 
     @OneToMany(mappedBy = "apartment")
-    val heating: List<Heating>? = null,
+    val heating: List<Heating> = emptyList(),
 
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)

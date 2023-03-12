@@ -4,8 +4,10 @@ import lombok.Getter
 import lombok.Setter
 import java.time.Instant
 import javax.persistence.*
+import javax.validation.constraints.Max
 import javax.validation.constraints.Min
 import javax.validation.constraints.NotEmpty
+import javax.validation.constraints.NotNull
 
 @Getter
 @Setter
@@ -25,14 +27,26 @@ class Dwelling(
     @Column(name = "floor_number", nullable = false)
     val floorNumber: Int,
 
+    @Min(1)
+    @Max(31)
+    @NotNull
+    @Column(name = "start_measuring_day", nullable = false)
+    val startMeasuringDay: Int,
+
+    @Min(1)
+    @Max(31)
+    @NotNull
+    @Column(name = "stop_measuring_day", nullable = false)
+    val stopMeasuringDay: Int,
+
     @Column(name = "created_at", updatable = false)
     val createdAt: Instant = Instant.now(),
 
     @Column(name = "last_modified_at")
-    val lastModifiedAt: Instant = Instant.now(),
+    val lastModifiedAt: Instant,
 
     @OneToMany(mappedBy = "dwelling")
-    val floors: List<Floor>? = null,
+    val floors: List<Floor> = emptyList(),
 
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)

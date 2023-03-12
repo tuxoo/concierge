@@ -25,5 +25,6 @@ data class StreetDto(
     fun toEntity() = Street(
         name = this.name!!,
         city = City.fromShortName(city!!),
+        lastModifiedAt = Instant.now(),
     )
 }

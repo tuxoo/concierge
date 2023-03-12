@@ -1,10 +1,9 @@
 package ru.home.concierge.controller
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import ru.home.concierge.model.dto.ApartmentTypeDto
 import ru.home.concierge.model.dto.CityDto
+import ru.home.concierge.model.dto.MonthDto
 import ru.home.concierge.service.DictionaryService
 
 @RestController
@@ -20,4 +19,10 @@ class DictionaryController(
     @GetMapping("/apartment-type")
     fun getApartmentTypes(): List<ApartmentTypeDto> =
         dictionaryService.getApartmentTypes()
+
+    @GetMapping("/year")
+    fun getYears(): List<Int> = dictionaryService.getYears()
+
+    @GetMapping("/month")
+    fun getMonths(): List<MonthDto> = dictionaryService.getMonths()
 }

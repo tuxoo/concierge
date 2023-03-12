@@ -1,5 +1,7 @@
 package ru.home.concierge.service
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import ru.home.concierge.model.dto.StreetDto
 import ru.home.concierge.model.entity.Street
@@ -17,8 +19,8 @@ class StreetService(
         streetRepository.save(streetDto.toEntity())
     }
 
-    fun getAll(): List<StreetDto> =
-        streetRepository.findAll().map {
+    fun getAll(pageable: Pageable): Page<StreetDto> =
+        streetRepository.findAll(pageable).map {
             StreetDto(
                 id = it.id,
                 name = it.name,
@@ -43,7 +45,7 @@ class StreetService(
         NotFoundException("The street not found by id [$id]")
     }
 
-    fun update(id: Int, name: String?, city: String?) {
+    fun updateById(id: Int, name: String?, city: String?) {
         streetRepository.save(
             findById(id).run {
                 Street(

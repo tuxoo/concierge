@@ -2,6 +2,7 @@ package ru.home.concierge.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import ru.home.concierge.model.dto.ApartmentDto
 import ru.home.concierge.model.dto.FloorDto
 import ru.home.concierge.model.entity.Floor
 import ru.home.concierge.model.exception.NotFoundException
@@ -16,7 +17,7 @@ class FloorService(
 
     @Transactional
     fun createAll(streetId: Int, dwellingId: Int, floorsDto: Array<FloorDto>) {
-        dwellingService.findByStreetIdAndId(streetId, dwellingId).run {
+        dwellingService.findById(streetId, dwellingId).run {
             floorsDto.forEach {
                 floorRepository.save(it.toEntity(this))
             }
@@ -24,15 +25,26 @@ class FloorService(
     }
 
     fun getAll(streetId: Int, dwellingId: Int): List<FloorDto> =
-        dwellingService.findByStreetIdAndId(streetId, dwellingId).floors?.map {
+        dwellingService.findById(streetId, dwellingId).floors.map { dwelling ->
             FloorDto(
-                id = it.id,
-                number = it.number,
-                apartmentNumber = it.apartmentNumber,
-                createdAt = it.createdAt,
-                lastModifiedAt = it.lastModifiedAt,
+                id = dwelling.id,
+                number = dwelling.number,
+                apartmentNumber = dwelling.apartmentNumber,
+                createdAt = dwelling.createdAt,
+                lastModifiedAt = dwelling.lastModifiedAt,
+                apartments = dwelling.apartments.map { apartment ->
+                    ApartmentDto(
+                        id = apartment.id,
+                        number = apartment.number,
+                        owner = apartment.owner,
+                        phone = apartment.phone,
+                        type = apartment.type?.name,
+                        createdAt = apartment.createdAt,
+                        lastModifiedAt = apartment.lastModifiedAt,
+                    )
+                }
             )
-        } ?: emptyList()
+        }
 
     fun getById(streetId: Int, dwellingId: Int, id: Int): FloorDto =
         findByStreetIdAndDwellingIdAndId(streetId, dwellingId, id).run {
@@ -46,11 +58,11 @@ class FloorService(
         }
 
     fun findByStreetIdAndDwellingIdAndId(streetId: Int, dwellingId: Int, id: Int): Floor =
-        dwellingService.findByStreetIdAndId(streetId, dwellingId).floors?.find {
+        dwellingService.findById(streetId, dwellingId).floors?.find {
             it.id == id
         } ?: throw NotFoundException("The floor not found by id [$id]")
 
-    fun update(streetId: Int, dwellingId: Int, id: Int, apartmentNumber: Int?) {
+    fun updateById(streetId: Int, dwellingId: Int, id: Int, apartmentNumber: Int?) {
         floorRepository.save(
             findByStreetIdAndDwellingIdAndId(streetId, dwellingId, id).run {
                 Floor(

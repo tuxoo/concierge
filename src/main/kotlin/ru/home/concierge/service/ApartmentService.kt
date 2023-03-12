@@ -1,5 +1,7 @@
 package ru.home.concierge.service
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import ru.home.concierge.model.dto.ApartmentDto
 import ru.home.concierge.model.entity.Apartment
@@ -11,6 +13,7 @@ import java.time.Instant
 @Service
 class ApartmentService(
     private val apartmentRepository: ApartmentRepository,
+    private val dwellingService: DwellingService,
     private val floorService: FloorService,
 ) {
     fun createAll(streetId: Int, dwellingId: Int, floorId: Int, apartmentDto: ApartmentDto): Unit =
@@ -18,53 +21,55 @@ class ApartmentService(
             apartmentRepository.save(apartmentDto.toEntity(this))
         }
 
-    fun getAll(streetId: Int, dwellingId: Int, floorId: Int): List<ApartmentDto> =
-        floorService.findByStreetIdAndDwellingIdAndId(streetId, dwellingId, floorId).apartments?.map {
+    fun getAll(streetId: Int, dwellingId: Int, pageable: Pageable): Page<ApartmentDto> =
+        apartmentRepository.findAll(pageable).map {
             ApartmentDto(
                 id = it.id,
                 number = it.number,
                 owner = it.owner,
+                phone = it.phone,
                 type = it.type?.name,
                 createdAt = it.createdAt,
                 lastModifiedAt = it.lastModifiedAt,
             )
-        } ?: emptyList()
+        }
 
-    fun getById(streetId: Int, dwellingId: Int, floorId: Int, id: Int): ApartmentDto {
-        val apartment = floorService.findByStreetIdAndDwellingIdAndId(streetId, dwellingId, floorId).apartments?.find {
-            it.id == id
-        } ?: error("")
+    fun getById(streetId: Int, dwellingId: Int, id: Int): ApartmentDto =
+        findById(streetId, dwellingId, id).run {
+            ApartmentDto(
+                id = this.id,
+                number = this.number,
+                owner = this.owner,
+                phone = this.phone,
+                type = this.type?.name,
+                createdAt = this.createdAt,
+                lastModifiedAt = this.lastModifiedAt,
+            )
+        }
 
-        return ApartmentDto(
-            id = apartment.id,
-            number = apartment.number,
-            owner = apartment.owner,
-            type = apartment.type?.name,
-            createdAt = apartment.createdAt,
-            lastModifiedAt = apartment.lastModifiedAt,
-        )
-    }
-
-    fun findByStreetIdAndDwellingIdAndFloorIdAndId(streetId: Int, dwellingId: Int, floorId: Int, id: Int): Apartment =
-        floorService.findByStreetIdAndDwellingIdAndId(streetId, dwellingId, floorId).apartments?.find {
+    fun findById(streetId: Int, dwellingId: Int, id: Int): Apartment =
+        dwellingService.findById(streetId, dwellingId).floors.map {
+            it.apartments
+        }.flatten().find {
             it.id == id
         } ?: throw NotFoundException("The Apartment not found by id [$id]")
 
-    fun update(
+    fun updateById(
         streetId: Int,
         dwellingId: Int,
-        floorId: Int,
         id: Int,
         apartmentNumber: Int?,
         owner: String?,
+        phone: String?,
         type: String?
     ) {
         apartmentRepository.save(
-            findByStreetIdAndDwellingIdAndFloorIdAndId(streetId, dwellingId, floorId, id).run {
+            findById(streetId, dwellingId, id).run {
                 Apartment(
                     id = this.id,
                     number = this.number,
                     owner = owner ?: this.owner,
+                    phone = phone ?: this.owner,
                     type = if (type != null) ApartmentType.valueOf(type) else null,
                     floor = this.floor,
                     createdAt = this.createdAt,
@@ -74,10 +79,9 @@ class ApartmentService(
         )
     }
 
-    fun delete(streetId: Int, dwellingId: Int, floorId: Int, id: Int) {
-        findByStreetIdAndDwellingIdAndFloorIdAndId(streetId, dwellingId, floorId, id).run {
+    fun delete(streetId: Int, dwellingId: Int, id: Int) {
+        findById(streetId, dwellingId, id).run {
             apartmentRepository.deleteById(this.id ?: id)
         }
     }
-
 }

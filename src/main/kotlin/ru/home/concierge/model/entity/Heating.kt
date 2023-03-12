@@ -23,7 +23,7 @@ class Heating(
     val createdAt: Instant = Instant.now(),
 
     @Column(name = "last_modified_at")
-    val lastModifiedAt: Instant = Instant.now(),
+    val lastModifiedAt: Instant,
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "month_id", nullable = false)

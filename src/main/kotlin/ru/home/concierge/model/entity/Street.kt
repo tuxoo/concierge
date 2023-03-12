@@ -27,8 +27,8 @@ class Street(
     val createdAt: Instant = Instant.now(),
 
     @Column(name = "last_modified_at")
-    val lastModifiedAt: Instant = Instant.now(),
+    val lastModifiedAt: Instant,
 
     @OneToMany(mappedBy = "street")
-    val dwellings: List<Dwelling>? = null,
+    val dwellings: List<Dwelling> = emptyList(),
 )

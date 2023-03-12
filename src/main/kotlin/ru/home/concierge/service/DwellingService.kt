@@ -1,5 +1,7 @@
 package ru.home.concierge.service
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import ru.home.concierge.model.dto.DwellingDto
 import ru.home.concierge.model.entity.Dwelling
@@ -19,39 +21,45 @@ class DwellingService(
         }
     }
 
-    fun getAll(streetId: Int): List<DwellingDto> =
-        streetService.findById(streetId).dwellings?.map {
+    fun getAll(streetId: Int, pageable: Pageable): Page<DwellingDto> =
+        dwellingRepository.findAll(pageable).map {
             DwellingDto(
                 id = it.id,
                 number = it.number,
                 floorNumber = it.floorNumber,
+                startMeasuringDay = it.startMeasuringDay,
+                stopMeasuringDay = it.stopMeasuringDay,
                 createdAt = it.createdAt,
                 lastModifiedAt = it.lastModifiedAt,
             )
-        } ?: emptyList()
+        }
 
     fun getById(streetId: Int, id: Int): DwellingDto =
-        findByStreetIdAndId(streetId, id).run {
+        findById(streetId, id).run {
             DwellingDto(
                 id = this.id,
                 number = this.number,
                 floorNumber = this.floorNumber,
+                startMeasuringDay = this.startMeasuringDay,
+                stopMeasuringDay = this.stopMeasuringDay,
                 createdAt = this.createdAt,
                 lastModifiedAt = this.lastModifiedAt,
             )
         }
 
-    fun findByStreetIdAndId(streetId: Int, id: Int): Dwelling = streetService.findById(streetId).run {
-        dwellings?.find { it.id == id } ?: throw NotFoundException("The street not found by id [$id]")
+    fun findById(streetId: Int, id: Int): Dwelling = streetService.findById(streetId).run {
+        dwellings.find { it.id == id } ?: throw NotFoundException("The street not found by id [$id]")
     }
 
-    fun update(streetId: Int, id: Int, floorNumber: Int?) {
+    fun update(streetId: Int, id: Int, floorNumber: Int?, startMeasuringDay: Int?, stopMeasuringDay: Int?) {
         dwellingRepository.save(
-            findByStreetIdAndId(streetId, id).run {
+            findById(streetId, id).run {
                 Dwelling(
                     id = this.id,
                     number = this.number,
                     floorNumber = floorNumber ?: this.floorNumber,
+                    startMeasuringDay = startMeasuringDay ?: this.startMeasuringDay,
+                    stopMeasuringDay = stopMeasuringDay ?: this.stopMeasuringDay,
                     createdAt = this.createdAt,
                     street = this.street,
                     lastModifiedAt = Instant.now(),
@@ -61,7 +69,7 @@ class DwellingService(
     }
 
     fun delete(streetId: Int, id: Int) =
-        findByStreetIdAndId(streetId, id).run {
+        findById(streetId, id).run {
             dwellingRepository.deleteById(this.id ?: id)
         }
 }
