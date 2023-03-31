@@ -32,10 +32,10 @@ class Apartment(
     @Column(name = "phone", length = 15, nullable = true)
     val phone: String? = null,
 
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "created_at", updatable = false, nullable = false)
     val createdAt: Instant = Instant.now(),
 
-    @Column(name = "last_modified_at")
+    @Column(name = "last_modified_at", nullable = false)
     val lastModifiedAt: Instant,
 
     @OneToMany(mappedBy = "apartment")

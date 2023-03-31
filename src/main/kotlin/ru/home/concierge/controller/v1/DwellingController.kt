@@ -44,9 +44,10 @@ class DwellingController(
         @PathVariable streetId: Int,
         @PathVariable id: Int,
         @RequestParam("floorNumber") floorNumber: Int?,
+        @RequestParam("sectionNumber") sectionNumber: Int?,
         @RequestParam("startMeasuringDay") startMeasuringDay: Int?,
         @RequestParam("stopMeasuringDay") stopMeasuringDay: Int?,
-    ): Unit = dwellingService.update(streetId, id, floorNumber, startMeasuringDay, stopMeasuringDay)
+    ): Unit = dwellingService.update(streetId, id, floorNumber, sectionNumber, startMeasuringDay, stopMeasuringDay)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

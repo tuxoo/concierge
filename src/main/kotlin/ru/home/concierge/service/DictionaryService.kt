@@ -27,7 +27,7 @@ class DictionaryService(
         MonthDto(
             number = it.id,
             name = it.name,
-            shortName = MonthDto.getShortName(it.id)
+            shortName = it.shortName,
         )
     }
 }

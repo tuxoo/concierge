@@ -1,4 +1,4 @@
-package ru.home.concierge.controller.v1
+package ru.home.concierge.controller
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*

@@ -28,6 +28,10 @@ class Dwelling(
     val floorNumber: Int,
 
     @Min(1)
+    @Column(name = "section_number", nullable = false)
+    val sectionNumber: Int,
+
+    @Min(1)
     @Max(31)
     @NotNull
     @Column(name = "start_measuring_day", nullable = false)
@@ -39,10 +43,10 @@ class Dwelling(
     @Column(name = "stop_measuring_day", nullable = false)
     val stopMeasuringDay: Int,
 
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "created_at", updatable = false, nullable = false)
     val createdAt: Instant = Instant.now(),
 
-    @Column(name = "last_modified_at")
+    @Column(name = "last_modified_at", nullable = false)
     val lastModifiedAt: Instant,
 
     @OneToMany(mappedBy = "dwelling")

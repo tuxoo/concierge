@@ -14,7 +14,8 @@ import javax.validation.constraints.NotNull
 class User(
 
     @Id
-    val id: Int,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Int? = null,
 
     @NotNull
     @Column(name = "name", length = 255, nullable = false)
@@ -28,10 +29,10 @@ class User(
     @Column(name = "password_hash", length = 255, nullable = false)
     val passwordHash: String,
 
-    @Column(name = "registered_at", updatable = false)
+    @Column(name = "registered_at", updatable = false, nullable = false)
     val registeredAt: Instant = Instant.now(),
 
-    @Column(name = "visited_at")
+    @Column(name = "visited_at", nullable = false)
     val visitedAt: Instant,
 
     @NotNull

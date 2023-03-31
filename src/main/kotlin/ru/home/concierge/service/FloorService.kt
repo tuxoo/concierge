@@ -29,6 +29,7 @@ class FloorService(
             FloorDto(
                 id = dwelling.id,
                 number = dwelling.number,
+                section = dwelling.section,
                 apartmentNumber = dwelling.apartmentNumber,
                 createdAt = dwelling.createdAt,
                 lastModifiedAt = dwelling.lastModifiedAt,
@@ -51,6 +52,7 @@ class FloorService(
             FloorDto(
                 id = this.id,
                 number = this.number,
+                section = this.section,
                 apartmentNumber = this.apartmentNumber,
                 createdAt = this.createdAt,
                 lastModifiedAt = this.lastModifiedAt,
@@ -68,6 +70,7 @@ class FloorService(
                 Floor(
                     id = this.id,
                     number = this.number,
+                    section = this.section,
                     apartmentNumber = apartmentNumber ?: this.apartmentNumber,
                     createdAt = this.createdAt,
                     dwelling = this.dwelling,

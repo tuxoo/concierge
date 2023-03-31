@@ -15,6 +15,10 @@ data class FloorDto(
 
     @field:NotNull
     @field:NotEmpty
+    val section: Int?,
+
+    @field:NotNull
+    @field:NotEmpty
     val apartmentNumber: Int?,
 
     val createdAt: Instant?,
@@ -26,6 +30,7 @@ data class FloorDto(
 
     fun toEntity(dwelling: Dwelling) = Floor(
         number = this.number!!,
+        section = this.section!!,
         apartmentNumber = this.apartmentNumber!!,
         lastModifiedAt = Instant.now(),
         dwelling = dwelling,

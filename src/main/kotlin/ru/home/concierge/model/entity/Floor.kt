@@ -19,13 +19,16 @@ class Floor(
     @Column(name = "number", nullable = false)
     val number: Int,
 
+    @Column(name = "section", nullable = false)
+    val section: Int,
+
     @Column(name = "apartment_number", nullable = false)
     val apartmentNumber: Int,
 
-    @Column(name = "created_at", updatable = false)
+    @Column(name = "created_at", updatable = false, nullable = false)
     val createdAt: Instant = Instant.now(),
 
-    @Column(name = "last_modified_at")
+    @Column(name = "last_modified_at", nullable = false)
     val lastModifiedAt: Instant,
 
     @OneToMany(mappedBy = "floor")

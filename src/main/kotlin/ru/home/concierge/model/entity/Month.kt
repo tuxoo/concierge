@@ -20,4 +20,8 @@ class Month(
     @NotEmpty
     @Column(name = "name", length = 15, nullable = false)
     val name: String,
+
+    @NotEmpty
+    @Column(name = "short_name", length = 3, nullable = false)
+    val shortName: String,
 )

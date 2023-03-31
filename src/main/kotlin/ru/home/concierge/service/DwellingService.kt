@@ -27,6 +27,7 @@ class DwellingService(
                 id = it.id,
                 number = it.number,
                 floorNumber = it.floorNumber,
+                sectionNumber = it.sectionNumber,
                 startMeasuringDay = it.startMeasuringDay,
                 stopMeasuringDay = it.stopMeasuringDay,
                 createdAt = it.createdAt,
@@ -40,6 +41,7 @@ class DwellingService(
                 id = this.id,
                 number = this.number,
                 floorNumber = this.floorNumber,
+                sectionNumber = this.sectionNumber,
                 startMeasuringDay = this.startMeasuringDay,
                 stopMeasuringDay = this.stopMeasuringDay,
                 createdAt = this.createdAt,
@@ -51,13 +53,21 @@ class DwellingService(
         dwellings.find { it.id == id } ?: throw NotFoundException("The street not found by id [$id]")
     }
 
-    fun update(streetId: Int, id: Int, floorNumber: Int?, startMeasuringDay: Int?, stopMeasuringDay: Int?) {
+    fun update(
+        streetId: Int,
+        id: Int,
+        floorNumber: Int?,
+        sectionNumber: Int?,
+        startMeasuringDay: Int?,
+        stopMeasuringDay: Int?
+    ) {
         dwellingRepository.save(
             findById(streetId, id).run {
                 Dwelling(
                     id = this.id,
                     number = this.number,
                     floorNumber = floorNumber ?: this.floorNumber,
+                    sectionNumber = sectionNumber ?: this.sectionNumber,
                     startMeasuringDay = startMeasuringDay ?: this.startMeasuringDay,
                     stopMeasuringDay = stopMeasuringDay ?: this.stopMeasuringDay,
                     createdAt = this.createdAt,

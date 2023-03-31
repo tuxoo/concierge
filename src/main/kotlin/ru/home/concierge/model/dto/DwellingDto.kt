@@ -21,6 +21,10 @@ data class DwellingDto(
 
     @field:NotNull
     @field:Min(1)
+    val sectionNumber: Int?,
+
+    @field:NotNull
+    @field:Min(1)
     @field:Max(31)
     val startMeasuringDay: Int?,
 
@@ -37,6 +41,7 @@ data class DwellingDto(
     fun toEntity(street: Street) = Dwelling(
         number = this.number!!,
         floorNumber = this.floorNumber!!,
+        sectionNumber = this.sectionNumber!!,
         startMeasuringDay = this.startMeasuringDay!!,
         stopMeasuringDay = this.stopMeasuringDay!!,
         lastModifiedAt = Instant.now(),

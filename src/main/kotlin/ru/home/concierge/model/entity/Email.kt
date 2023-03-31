@@ -13,7 +13,8 @@ import javax.validation.constraints.NotNull
 class Email(
 
     @Id
-    val id: Int,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Int? = null,
 
     @NotNull
     @Column(name = "address", length = 255, nullable = false)
