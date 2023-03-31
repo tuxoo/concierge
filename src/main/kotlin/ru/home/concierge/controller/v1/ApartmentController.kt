@@ -1,5 +1,6 @@
-package ru.home.concierge.controller
+package ru.home.concierge.controller.v1
 
+import org.springdoc.core.converters.models.PageableAsQueryParam
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
@@ -27,6 +28,8 @@ class ApartmentController(
     ): Unit = apartmentService.createAll(streetId, dwellingId, floorId!!, apartmentDto)
 
     @GetMapping
+    @PageableAsQueryParam
+    @ResponseStatus(HttpStatus.OK)
     fun getAllApartments(
         @PathVariable streetId: Int,
         @PathVariable dwellingId: Int,
@@ -34,6 +37,7 @@ class ApartmentController(
     ): Page<ApartmentDto> = apartmentService.getAll(streetId, dwellingId, pageable)
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     fun getApartmentById(
         @PathVariable streetId: Int,
         @PathVariable dwellingId: Int,
@@ -41,6 +45,7 @@ class ApartmentController(
     ): ApartmentDto = apartmentService.getById(streetId, dwellingId, id)
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     fun updateApartment(
         @PathVariable streetId: Int,
         @PathVariable dwellingId: Int,
@@ -52,6 +57,7 @@ class ApartmentController(
     ): Unit = apartmentService.updateById(streetId, dwellingId, id, number, owner, phone, type)
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     fun deleteApartment(
         @PathVariable streetId: Int,
         @PathVariable dwellingId: Int,

@@ -15,7 +15,7 @@ spring:
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
   application:
-    name: ${APPLICATION_NAME}
+    name: ${APP_NAME}
   jpa:
     show-sql: ${SPRING_DEBUG:false}
     properties:
@@ -39,3 +39,7 @@ management:
   endpoint:
     health:
       enabled: true
+
+application:
+  url: ${APP_URL}
+  api-path: ${API_PATH:/}

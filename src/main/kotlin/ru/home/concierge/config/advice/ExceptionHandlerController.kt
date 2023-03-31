@@ -1,5 +1,6 @@
 package ru.home.concierge.config.advice
 
+import io.swagger.v3.oas.annotations.responses.ApiResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -17,8 +18,8 @@ import javax.validation.ConstraintViolationException
 @ControllerAdvice
 class ExceptionHandlerController {
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BusinessLogicException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleBusinessLogicException(e: BusinessLogicException): ResponseEntity<ErrorResponse> {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
             ErrorResponse(
@@ -28,8 +29,8 @@ class ExceptionHandlerController {
         )
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException::class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     fun handleNotFoundException(e: NotFoundException): ResponseEntity<ErrorResponse> {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
             ErrorResponse(
@@ -39,8 +40,8 @@ class ExceptionHandlerController {
         )
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleConstraintValidationException(e: ConstraintViolationException): ResponseEntity<ValidationErrorResponse> {
         val validationErrors = ArrayList<ValidationError>()
 
@@ -60,8 +61,8 @@ class ExceptionHandlerController {
         )
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleArgumentValidationException(e: MethodArgumentNotValidException): ResponseEntity<ValidationErrorResponse> {
         val validationErrors = e.bindingResult.fieldErrors.map {
             ValidationError(it.field, it.defaultMessage ?: "")

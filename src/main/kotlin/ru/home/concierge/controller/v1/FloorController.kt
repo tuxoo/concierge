@@ -1,4 +1,4 @@
-package ru.home.concierge.controller
+package ru.home.concierge.controller.v1
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -20,13 +20,16 @@ class FloorController(
         @Valid @RequestBody floorsDto: Array<FloorDto>,
     ): Unit = floorService.createAll(streetId, dwellingId, floorsDto)
 
+
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     fun getAllFloors(
         @PathVariable streetId: Int,
         @PathVariable dwellingId: Int,
     ): List<FloorDto> = floorService.getAll(streetId, dwellingId)
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     fun getDwellingById(
         @PathVariable streetId: Int,
         @PathVariable dwellingId: Int,
@@ -34,6 +37,7 @@ class FloorController(
     ): FloorDto = floorService.getById(streetId, dwellingId, id)
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     fun updateDwelling(
         @PathVariable streetId: Int,
         @PathVariable dwellingId: Int,
@@ -42,6 +46,7 @@ class FloorController(
     ): Unit = floorService.updateById(streetId, dwellingId, id, apartmentNumber)
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     fun deleteDwelling(
         @PathVariable streetId: Int,
         @PathVariable dwellingId: Int,

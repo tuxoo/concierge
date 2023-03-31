@@ -1,5 +1,7 @@
-package ru.home.concierge.controller
+package ru.home.concierge.controller.v1
 
+import io.swagger.v3.oas.annotations.Parameter
+import org.springdoc.core.converters.models.PageableAsQueryParam
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
@@ -22,18 +24,22 @@ class DwellingController(
     ): Unit = dwellingService.create(streetId, dwellingDto)
 
     @GetMapping
+    @PageableAsQueryParam
+    @ResponseStatus(HttpStatus.OK)
     fun getAllDwellings(
         @PathVariable streetId: Int,
-        pageable: Pageable,
+        @Parameter(hidden = true) pageable: Pageable,
     ): Page<DwellingDto> = dwellingService.getAll(streetId, pageable)
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     fun getDwellingById(
         @PathVariable streetId: Int,
         @PathVariable id: Int,
     ): DwellingDto = dwellingService.getById(streetId, id)
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     fun updateDwelling(
         @PathVariable streetId: Int,
         @PathVariable id: Int,
@@ -43,6 +49,7 @@ class DwellingController(
     ): Unit = dwellingService.update(streetId, id, floorNumber, startMeasuringDay, stopMeasuringDay)
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     fun deleteDwelling(
         @PathVariable streetId: Int,
         @PathVariable id: Int,

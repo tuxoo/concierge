@@ -1,4 +1,4 @@
-package ru.home.concierge.controller
+package ru.home.concierge.controller.v1
 
 import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
@@ -25,12 +25,14 @@ class HeatingController(
     ): Unit = heatingService.create(streetId, dwellingId, apartmentId!!, heatingDto)
 
     @GetMapping("/current")
+    @ResponseStatus(HttpStatus.OK)
     fun getByCurrenPeriod(
         @PathVariable streetId: Int,
         @PathVariable dwellingId: Int,
     ): List<HeatingDto> = heatingService.getByCurrenPeriod(streetId, dwellingId)
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     fun updateHeating(
         @PathVariable streetId: Int,
         @PathVariable dwellingId: Int,
