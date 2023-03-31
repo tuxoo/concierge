@@ -23,7 +23,7 @@ spring:
         jdbc:
           time_zone: ${SERVER_TIMEZONE:UTC}
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
 
 springdoc:
   api-docs:
