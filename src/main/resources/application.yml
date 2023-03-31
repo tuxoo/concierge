@@ -24,6 +24,11 @@ spring:
           time_zone: ${SERVER_TIMEZONE:UTC}
     hibernate:
       ddl-auto: validate
+  liquibase:
+    enabled: true
+    change-log: classpath:db/db.changelog.xml
+    default-schema: ${POSTGRES_SCHEMA:concierge}
+    contexts: test
 
 springdoc:
   api-docs:

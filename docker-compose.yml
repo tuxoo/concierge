@@ -18,21 +18,6 @@ services:
       concierge-net:
         ipv4_address: 172.28.1.1
 
-  liquibase-concierge:
-    container_name: liquibase-concierge
-    image: liquibase/liquibase:${LIQUIBASE_VERSION}
-    restart: on-failure
-    command: --defaultsFile=liquibase.properties update
-    depends_on:
-      - postgres-concierge
-    volumes:
-      - ./migration/:/liquibase/changelog/
-      - ./migration/:/liquibase/classpath/
-      - ./migration/liquibase.properties:/liquibase/liquibase.properties
-    networks:
-      concierge-net:
-        ipv4_address: 172.28.1.2
-
 networks:
   concierge-net:
     ipam:
