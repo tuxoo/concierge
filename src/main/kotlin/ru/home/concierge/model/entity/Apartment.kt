@@ -38,11 +38,14 @@ class Apartment(
     @Column(name = "last_modified_at", nullable = false)
     val lastModifiedAt: Instant,
 
-    @OneToMany(mappedBy = "apartment")
-    val heating: List<Heating> = emptyList(),
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dwelling_id", nullable = false)
+    val dwelling: Dwelling,
 
-    @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "floor_id", nullable = false)
     val floor: Floor,
+
+    @OneToMany(mappedBy = "apartment")
+    val heating: List<Heating> = emptyList(),
 )

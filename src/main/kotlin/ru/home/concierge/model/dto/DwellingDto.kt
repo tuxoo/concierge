@@ -17,10 +17,6 @@ data class DwellingDto(
 
     @field:NotNull
     @field:Min(1)
-    val floorNumber: Int?,
-
-    @field:NotNull
-    @field:Min(1)
     val sectionNumber: Int?,
 
     @field:NotNull
@@ -36,15 +32,44 @@ data class DwellingDto(
     val createdAt: Instant?,
 
     val lastModifiedAt: Instant?,
+
+    val sections: List<SectionDto>?,
 ) {
 
     fun toEntity(street: Street) = Dwelling(
         number = this.number!!,
-        floorNumber = this.floorNumber!!,
         sectionNumber = this.sectionNumber!!,
         startMeasuringDay = this.startMeasuringDay!!,
         stopMeasuringDay = this.stopMeasuringDay!!,
         lastModifiedAt = Instant.now(),
         street = street,
     )
+
+    companion object {
+        fun fromEntity(dwelling: Dwelling) = DwellingDto(
+            id = dwelling.id,
+            number = dwelling.number,
+            sectionNumber = dwelling.sectionNumber,
+            startMeasuringDay = dwelling.startMeasuringDay,
+            stopMeasuringDay = dwelling.stopMeasuringDay,
+            createdAt = dwelling.createdAt,
+            lastModifiedAt = dwelling.lastModifiedAt,
+            sections = dwelling.sections.map { section ->
+                SectionDto(
+                    id = section.id,
+                    number = section.number,
+                    floorNumber = section.floorNumber,
+                    createdAt = section.createdAt,
+                    floors = section.floors.map { floor ->
+                        FloorDto(
+                            id = floor.id,
+                            number = floor.number,
+                            apartmentNumber = floor.apartmentNumber,
+                            createdAt = floor.createdAt,
+                        )
+                    }
+                )
+            }
+        )
+    }
 }

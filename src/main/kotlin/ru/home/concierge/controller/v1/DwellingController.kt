@@ -36,23 +36,22 @@ class DwellingController(
     fun getDwellingById(
         @PathVariable streetId: Int,
         @PathVariable id: Int,
-    ): DwellingDto = dwellingService.getById(streetId, id)
+    ): DwellingDto = dwellingService.getById(id)
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     fun updateDwelling(
         @PathVariable streetId: Int,
         @PathVariable id: Int,
-        @RequestParam("floorNumber") floorNumber: Int?,
         @RequestParam("sectionNumber") sectionNumber: Int?,
         @RequestParam("startMeasuringDay") startMeasuringDay: Int?,
         @RequestParam("stopMeasuringDay") stopMeasuringDay: Int?,
-    ): Unit = dwellingService.update(streetId, id, floorNumber, sectionNumber, startMeasuringDay, stopMeasuringDay)
+    ): Unit = dwellingService.update(id, sectionNumber, startMeasuringDay, stopMeasuringDay)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     fun deleteDwelling(
         @PathVariable streetId: Int,
         @PathVariable id: Int,
-    ): Unit = dwellingService.delete(streetId, id)
+    ): Unit = dwellingService.delete(id)
 }

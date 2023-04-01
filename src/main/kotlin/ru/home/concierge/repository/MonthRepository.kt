@@ -5,5 +5,4 @@ import org.springframework.stereotype.Repository
 import ru.home.concierge.model.entity.Month
 
 @Repository
-interface MonthRepository : JpaRepository<Month, Int> {
-}
+interface MonthRepository : JpaRepository<Month, Int>

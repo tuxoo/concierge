@@ -16,46 +16,31 @@ class ApartmentService(
     private val dwellingService: DwellingService,
     private val floorService: FloorService,
 ) {
-    fun createAll(streetId: Int, dwellingId: Int, floorId: Int, apartmentDto: ApartmentDto): Unit =
-        floorService.findByStreetIdAndDwellingIdAndId(streetId, dwellingId, floorId).run {
-            apartmentRepository.save(apartmentDto.toEntity(this))
+    fun create(dwellingId: Int, floorId: Int, apartmentDto: ApartmentDto) {
+        val dwelling = dwellingService.findByIdOrThrow(dwellingId)
+        floorService.findByIdOrThrow(floorId).run {
+            apartmentRepository.save(apartmentDto.toEntity(dwelling, this))
+        }
+    }
+
+    fun getAll(dwellingId: Int, pageable: Pageable): Page<ApartmentDto> =
+        dwellingService.findByIdOrThrow(dwellingId).run {
+            apartmentRepository.findAllByDwelling(this, pageable)
+                .map { ApartmentDto.fromEntity(it) }
         }
 
-    fun getAll(streetId: Int, dwellingId: Int, pageable: Pageable): Page<ApartmentDto> =
-        apartmentRepository.findAll(pageable).map {
-            ApartmentDto(
-                id = it.id,
-                number = it.number,
-                owner = it.owner,
-                phone = it.phone,
-                type = it.type?.name,
-                createdAt = it.createdAt,
-                lastModifiedAt = it.lastModifiedAt,
-            )
-        }
+    fun getById(dwellingId: Int, id: Int): ApartmentDto =
+        findByDwellingIdAndIdOrThrow(dwellingId, id).run { ApartmentDto.fromEntity(this) }
 
-    fun getById(streetId: Int, dwellingId: Int, id: Int): ApartmentDto =
-        findById(streetId, dwellingId, id).run {
-            ApartmentDto(
-                id = this.id,
-                number = this.number,
-                owner = this.owner,
-                phone = this.phone,
-                type = this.type?.name,
-                createdAt = this.createdAt,
-                lastModifiedAt = this.lastModifiedAt,
-            )
-        }
-
-    fun findById(streetId: Int, dwellingId: Int, id: Int): Apartment =
-        dwellingService.findById(streetId, dwellingId).floors.map {
-            it.apartments
-        }.flatten().find {
-            it.id == id
-        } ?: throw NotFoundException("The Apartment not found by id [$id]")
+    fun findByDwellingIdAndIdOrThrow(dwellingId: Int, id: Int): Apartment =
+        dwellingService.findByIdOrThrow(dwellingId).sections.asSequence().map {
+            it.floors
+        }.flatten()
+            .map { it.apartments }.flatten()
+            .find { it.id == id }
+            ?: throw NotFoundException("The Apartment not found by id [$id]")
 
     fun updateById(
-        streetId: Int,
         dwellingId: Int,
         id: Int,
         apartmentNumber: Int?,
@@ -64,13 +49,14 @@ class ApartmentService(
         type: String?
     ) {
         apartmentRepository.save(
-            findById(streetId, dwellingId, id).run {
+            findByDwellingIdAndIdOrThrow(dwellingId, id).run {
                 Apartment(
                     id = this.id,
                     number = this.number,
                     owner = owner ?: this.owner,
                     phone = phone ?: this.owner,
                     type = if (type != null) ApartmentType.valueOf(type) else null,
+                    dwelling = this.dwelling,
                     floor = this.floor,
                     createdAt = this.createdAt,
                     lastModifiedAt = Instant.now(),
@@ -79,8 +65,8 @@ class ApartmentService(
         )
     }
 
-    fun delete(streetId: Int, dwellingId: Int, id: Int) {
-        findById(streetId, dwellingId, id).run {
+    fun delete(dwellingId: Int, id: Int) {
+        findByDwellingIdAndIdOrThrow(dwellingId, id).run {
             apartmentRepository.deleteById(this.id ?: id)
         }
     }

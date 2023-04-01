@@ -19,8 +19,8 @@ class HeatingService(
     private val yearService: YearService,
 ) {
 
-    fun create(streetId: Int, dwellingId: Int, apartmentId: Int, heatingDto: HeatingDto) {
-        val dwelling = dwellingService.findById(streetId, dwellingId)
+    fun create(dwellingId: Int, apartmentId: Int, heatingDto: HeatingDto) {
+        val dwelling = dwellingService.findByIdOrThrow(dwellingId)
         val city = dwelling.street.city
 
         val now = ZonedDateTime.now(ZoneId.of(city.getTimeZone()))
@@ -28,7 +28,7 @@ class HeatingService(
             throw BusinessLogicException("Measuring period [${dwelling.startMeasuringDay} : ${dwelling.stopMeasuringDay}]")
         }
 
-        return apartmentService.findById(streetId, dwellingId, apartmentId)
+        return apartmentService.findByDwellingIdAndIdOrThrow(dwellingId, apartmentId)
             .run {
                 heatingRepository.save(
                     Heating(
@@ -36,52 +36,27 @@ class HeatingService(
                         month = monthService.getById(now.month.value),
                         year = yearService.getById(now.year),
                         lastModifiedAt = Instant.now(),
+                        dwelling = dwelling,
                         apartment = this,
                     )
                 )
             }
     }
 
-    fun getByCurrenPeriod(
-        streetId: Int,
-        dwellingId: Int,
-    ): List<HeatingDto> {
-        val dwelling = dwellingService.findById(streetId, dwellingId)
-        val city = dwelling.street.city
+    fun findById(dwellingId: Int, apartmentId: Int, id: Int): Heating =
+        apartmentService.findByDwellingIdAndIdOrThrow(dwellingId, apartmentId).heating.find { it.id == id }
+            ?: throw NotFoundException("The Heating not found by id [$id] in apartment [$apartmentId]")
 
-        val now = ZonedDateTime.now(ZoneId.of(city.getTimeZone()))
-        return dwelling.floors.asSequence().map {
-            it.apartments
-        }.flatten().map {
-            it.heating
-        }.flatten().filter {
-            it.month.id == now.month.value && it.year.id == now.year
-        }.map {
-            HeatingDto(
-                id = it.id,
-                measure = it.measure,
-                createdAt = it.createdAt,
-                lastModifiedAt = it.lastModifiedAt,
-            )
-        }.toList()
-    }
-
-    fun findById(streetId: Int, dwellingId: Int, apartmentId: Int, id: Int): Heating =
-        apartmentService.findById(streetId, dwellingId, apartmentId).heating.find {
-            it.id == id
-        } ?: throw NotFoundException("The Heating not found by id [$id] in apartment [$apartmentId]")
-
-    fun updateById(
-        streetId: Int, dwellingId: Int, id: Int, apartmentId: Int, measure: Double?,
-    ) {
+    fun updateById(dwellingId: Int, id: Int, apartmentId: Int, measure: Double?) {
         heatingRepository.save(
-            findById(streetId, dwellingId, apartmentId, id).run {
+            findById(dwellingId, apartmentId, id).run {
                 Heating(
                     id = this.id,
                     measure = measure ?: this.measure,
                     month = this.month,
                     year = this.year,
                     lastModifiedAt = Instant.now(),
+                    dwelling = this.dwelling,
                     apartment = this.apartment,
                 )
             }

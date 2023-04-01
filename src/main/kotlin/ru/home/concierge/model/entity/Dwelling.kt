@@ -24,10 +24,6 @@ class Dwelling(
     val number: String,
 
     @Min(1)
-    @Column(name = "floor_number", nullable = false)
-    val floorNumber: Int,
-
-    @Min(1)
     @Column(name = "section_number", nullable = false)
     val sectionNumber: Int,
 
@@ -49,11 +45,16 @@ class Dwelling(
     @Column(name = "last_modified_at", nullable = false)
     val lastModifiedAt: Instant,
 
-    @OneToMany(mappedBy = "dwelling")
-    val floors: List<Floor> = emptyList(),
-
-    @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "street_id", nullable = false)
-    val street: Street
+    val street: Street,
+
+    @OneToMany(mappedBy = "dwelling")
+    val sections: List<Section> = emptyList(),
+
+    @OneToMany(mappedBy = "dwelling")
+    val apartments: List<Apartment> = emptyList(),
+
+    @OneToMany(mappedBy = "dwelling")
+    val heating: List<Heating> = emptyList(),
 )

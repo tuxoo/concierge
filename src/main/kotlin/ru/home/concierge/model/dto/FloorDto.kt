@@ -1,7 +1,7 @@
 package ru.home.concierge.model.dto
 
-import ru.home.concierge.model.entity.Dwelling
 import ru.home.concierge.model.entity.Floor
+import ru.home.concierge.model.entity.Section
 import java.time.Instant
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
@@ -15,24 +15,37 @@ data class FloorDto(
 
     @field:NotNull
     @field:NotEmpty
-    val section: Int?,
-
-    @field:NotNull
-    @field:NotEmpty
     val apartmentNumber: Int?,
 
     val createdAt: Instant?,
 
-    val lastModifiedAt: Instant?,
-
-    val apartments: List<ApartmentDto> = emptyList(),
+    val apartments: List<ApartmentDto>? = null,
 ) {
 
-    fun toEntity(dwelling: Dwelling) = Floor(
+    fun toEntity(section: Section) = Floor(
         number = this.number!!,
-        section = this.section!!,
         apartmentNumber = this.apartmentNumber!!,
-        lastModifiedAt = Instant.now(),
-        dwelling = dwelling,
+        section = section,
     )
+
+    companion object {
+        fun fromEntity(floor: Floor) =
+            FloorDto(
+                id = floor.id,
+                number = floor.number,
+                apartmentNumber = floor.apartmentNumber,
+                createdAt = floor.createdAt,
+                apartments = floor.apartments.map { apartment ->
+                    ApartmentDto(
+                        id = apartment.id,
+                        number = apartment.number,
+                        owner = apartment.owner,
+                        phone = apartment.phone,
+                        type = apartment.type?.name,
+                        createdAt = apartment.createdAt,
+                        lastModifiedAt = apartment.lastModifiedAt,
+                    )
+                }
+            )
+    }
 }

@@ -33,7 +33,10 @@ class Heating(
     @JoinColumn(name = "year_id", nullable = false)
     val year: Year,
 
-    @NotEmpty
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dwelling_id", nullable = false)
+    val dwelling: Dwelling,
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apartment_id", nullable = false)
     val apartment: Apartment,
