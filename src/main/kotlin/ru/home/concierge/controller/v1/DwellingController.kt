@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import ru.home.concierge.model.dto.DwellingDto
+import ru.home.concierge.model.dto.DwellingFilter
 import ru.home.concierge.service.DwellingService
 import javax.validation.Valid
 
@@ -28,10 +29,14 @@ class DwellingController(
     @ResponseStatus(HttpStatus.OK)
     fun getAllDwellings(
         @PathVariable streetId: Int,
-        @Parameter(hidden = true) pageable: Pageable,
-        @RequestParam("id") id: Int?,
         @RequestParam("number") number: String?,
-    ): Page<DwellingDto> = dwellingService.getAll(streetId, id, number, pageable)
+        @Parameter(hidden = true) pageable: Pageable,
+    ): Page<DwellingDto> = dwellingService.getAll(
+        DwellingFilter(
+            streetId = streetId,
+            number = number,
+        ), pageable
+    )
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

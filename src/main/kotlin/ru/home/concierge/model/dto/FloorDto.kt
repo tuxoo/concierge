@@ -36,15 +36,7 @@ data class FloorDto(
                 apartmentNumber = floor.apartmentNumber,
                 createdAt = floor.createdAt,
                 apartments = floor.apartments.map { apartment ->
-                    ApartmentDto(
-                        id = apartment.id,
-                        number = apartment.number,
-                        owner = apartment.owner,
-                        phone = apartment.phone,
-                        type = apartment.type?.name,
-                        createdAt = apartment.createdAt,
-                        lastModifiedAt = apartment.lastModifiedAt,
-                    )
+                    ApartmentDto.fromEntity(apartment)
                 }
             )
     }

@@ -55,20 +55,7 @@ data class DwellingDto(
             createdAt = dwelling.createdAt,
             lastModifiedAt = dwelling.lastModifiedAt,
             sections = dwelling.sections.map { section ->
-                SectionDto(
-                    id = section.id,
-                    number = section.number,
-                    floorNumber = section.floorNumber,
-                    createdAt = section.createdAt,
-                    floors = section.floors.map { floor ->
-                        FloorDto(
-                            id = floor.id,
-                            number = floor.number,
-                            apartmentNumber = floor.apartmentNumber,
-                            createdAt = floor.createdAt,
-                        )
-                    }
-                )
+                SectionDto.fromEntity(section)
             }
         )
     }

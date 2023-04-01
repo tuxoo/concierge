@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import ru.home.concierge.model.dto.ApartmentDto
+import ru.home.concierge.model.dto.ApartmentFilter
 import ru.home.concierge.service.ApartmentService
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
@@ -32,8 +33,20 @@ class ApartmentController(
     @ResponseStatus(HttpStatus.OK)
     fun getAllApartments(
         @PathVariable dwellingId: Int,
+        @RequestParam("floorId") floorId: Int?,
+        @RequestParam("number") number: Int?,
+        @RequestParam("owner") owner: String?,
+        @RequestParam("phone") phone: String?,
         @Parameter(hidden = true) pageable: Pageable,
-    ): Page<ApartmentDto> = apartmentService.getAll(dwellingId, pageable)
+    ): Page<ApartmentDto> = apartmentService.getAll(
+        ApartmentFilter(
+            dwellingId = dwellingId,
+            floorId = floorId,
+            number = number,
+            owner = owner,
+            phone = phone,
+        ), pageable
+    )
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

@@ -15,6 +15,8 @@ data class ApartmentDto(
     @field:Min(1)
     val number: Int?,
 
+    val floor: Int?,
+
     val owner: String?,
 
     val phone: String?,
@@ -39,6 +41,7 @@ data class ApartmentDto(
             ApartmentDto(
                 id = apartment.id,
                 number = apartment.number,
+                floor = apartment.floor.number,
                 owner = apartment.owner,
                 phone = apartment.phone,
                 type = apartment.type?.name,

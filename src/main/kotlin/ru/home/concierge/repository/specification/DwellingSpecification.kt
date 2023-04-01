@@ -13,19 +13,8 @@ class DwellingSpecification {
 
         fun byFilter(filter: DwellingFilter): Specification<Dwelling> =
             Specification
-                .where(byId(filter.id))
-                .and(byStreetId(filter.streetId))
+                .where(byStreetId(filter.streetId))
                 .and(byNumber(filter.number))
-
-        private fun byId(id: Int?): Specification<Dwelling> {
-            return Specification<Dwelling> { root, _, builder ->
-                if (id == null) {
-                    null
-                } else {
-                    builder.equal(root.get<Dwelling>(Dwelling_.ID), id)
-                }
-            }
-        }
 
         private fun byStreetId(streetId: Int?): Specification<Dwelling> {
             return Specification<Dwelling> { root, _, builder ->

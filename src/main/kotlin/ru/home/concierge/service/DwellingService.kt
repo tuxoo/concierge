@@ -22,17 +22,9 @@ class DwellingService(
             dwellingRepository.save(dwellingDto.toEntity(this))
         }
 
-    fun getAll(streetId: Int, id: Int?, number: String?, pageable: Pageable): Page<DwellingDto> =
-        streetService.findById(streetId).run {
-            dwellingRepository.findAll(
-                DwellingSpecification.byFilter(
-                    DwellingFilter(
-                        streetId = streetId,
-                        id = id,
-                        number = number,
-                    )
-                ), pageable
-            )
+    fun getAll(filter: DwellingFilter, pageable: Pageable): Page<DwellingDto> =
+        streetService.findById(filter.streetId).run {
+            dwellingRepository.findAll(DwellingSpecification.byFilter(filter), pageable)
         }.map {
             DwellingDto.fromEntity(it)
         }

@@ -37,12 +37,7 @@ data class SectionDto(
                 floorNumber = section.floorNumber,
                 createdAt = section.createdAt,
                 floors = section.floors.map { floor ->
-                    FloorDto(
-                        id = floor.id,
-                        number = floor.number,
-                        apartmentNumber = floor.apartmentNumber,
-                        createdAt = floor.createdAt,
-                    )
+                    FloorDto.fromEntity(floor)
                 }
             )
     }
