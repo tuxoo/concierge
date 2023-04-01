@@ -29,7 +29,9 @@ class DwellingController(
     fun getAllDwellings(
         @PathVariable streetId: Int,
         @Parameter(hidden = true) pageable: Pageable,
-    ): Page<DwellingDto> = dwellingService.getAll(streetId, pageable)
+        @RequestParam("id") id: Int?,
+        @RequestParam("number") number: String?,
+    ): Page<DwellingDto> = dwellingService.getAll(streetId, id, number, pageable)
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

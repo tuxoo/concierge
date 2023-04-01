@@ -4,6 +4,7 @@ plugins {
 	kotlin("jvm") version "1.7.22"
 	kotlin("plugin.spring") version "1.7.22"
 	kotlin("plugin.jpa") version "1.7.22"
+	kotlin("kapt") version "1.5.20"
 }
 
 group = "com.home"
@@ -35,6 +36,7 @@ dependencies {
 	implementation("org.liquibase:liquibase-core:4.20.0")
 	compileOnly("org.projectlombok:lombok")
 	runtimeOnly("org.postgresql:postgresql")
+	kapt("org.hibernate:hibernate-jpamodelgen:5.4.30.Final")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")

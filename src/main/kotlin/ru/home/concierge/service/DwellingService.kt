@@ -4,10 +4,11 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import ru.home.concierge.model.dto.DwellingDto
-import ru.home.concierge.model.dto.SectionDto
+import ru.home.concierge.model.dto.DwellingFilter
 import ru.home.concierge.model.entity.Dwelling
 import ru.home.concierge.model.exception.NotFoundException
 import ru.home.concierge.repository.DwellingRepository
+import ru.home.concierge.repository.specification.DwellingSpecification
 import java.time.Instant
 
 @Service
@@ -21,12 +22,21 @@ class DwellingService(
             dwellingRepository.save(dwellingDto.toEntity(this))
         }
 
-    fun getAll(streetId: Int, pageable: Pageable): Page<DwellingDto> =
+    fun getAll(streetId: Int, id: Int?, number: String?, pageable: Pageable): Page<DwellingDto> =
         streetService.findById(streetId).run {
-            dwellingRepository.findAllByStreet(this, pageable)
+            dwellingRepository.findAll(
+                DwellingSpecification.byFilter(
+                    DwellingFilter(
+                        streetId = streetId,
+                        id = id,
+                        number = number,
+                    )
+                ), pageable
+            )
         }.map {
             DwellingDto.fromEntity(it)
         }
+
 
     fun getById(id: Int): DwellingDto =
         findByIdOrThrow(id).run {
