@@ -1,11 +1,18 @@
 package ru.home.concierge.service
 
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import ru.home.concierge.model.dto.ApartmentDto
+import ru.home.concierge.model.dto.ApartmentFilter
 import ru.home.concierge.model.dto.HeatingDto
+import ru.home.concierge.model.dto.HeatingFilter
 import ru.home.concierge.model.entity.Heating
 import ru.home.concierge.model.exception.BusinessLogicException
 import ru.home.concierge.model.exception.NotFoundException
 import ru.home.concierge.repository.HeatingRepository
+import ru.home.concierge.repository.specification.ApartmentSpecification
+import ru.home.concierge.repository.specification.HeatingSpecification
 import java.time.Instant
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -42,6 +49,11 @@ class HeatingService(
                 )
             }
     }
+
+    fun getAll(filter: HeatingFilter, pageable: Pageable): Page<HeatingDto> =
+        dwellingService.findByIdOrThrow(filter.dwellingId).run {
+            heatingRepository.findAll(HeatingSpecification.byFilter(filter), pageable)
+        }.map { HeatingDto.fromEntity(it) }
 
     fun findById(dwellingId: Int, apartmentId: Int, id: Int): Heating =
         apartmentService.findByDwellingIdAndIdOrThrow(dwellingId, apartmentId).heating.find { it.id == id }

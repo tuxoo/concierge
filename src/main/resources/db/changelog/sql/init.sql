@@ -310,3 +310,10 @@ create table heating
         constraint fk_year_id
             references year
 );
+
+INSERT INTO heating (measure, created_at, last_modified_at, dwelling_id, apartment_id, month_id, year_id)
+VALUES (15.0, now(), now(), 1, 1, 1, 2023);
+INSERT INTO heating (measure, created_at, last_modified_at, dwelling_id, apartment_id, month_id, year_id)
+VALUES (15.8, now(), now(), 1, 1, 2, 2023);
+INSERT INTO heating (measure, created_at, last_modified_at, dwelling_id, apartment_id, month_id, year_id)
+VALUES (16.1, now(), now(), 1, 1, 3, 2023);

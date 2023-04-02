@@ -49,6 +49,4 @@ data class ApartmentDto(
                 lastModifiedAt = apartment.lastModifiedAt,
             )
     }
-
-
 }
