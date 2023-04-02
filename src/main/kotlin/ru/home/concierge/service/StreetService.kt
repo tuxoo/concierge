@@ -1,5 +1,9 @@
 package ru.home.concierge.service
 
+import org.springframework.cache.annotation.CacheConfig
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.CachePut
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -11,6 +15,7 @@ import ru.home.concierge.repository.StreetRepository
 import java.time.Instant
 
 @Service
+@CacheConfig(cacheNames = ["street"])
 class StreetService(
     private val streetRepository: StreetRepository,
 ) {
@@ -30,6 +35,7 @@ class StreetService(
             )
         }
 
+    @Cacheable
     fun getById(id: Int): StreetDto =
         findById(id).run {
             StreetDto(
@@ -45,8 +51,9 @@ class StreetService(
         NotFoundException("The street not found by id [$id]")
     }
 
-    fun updateById(id: Int, name: String?, city: String?) {
-        streetRepository.save(
+    @CachePut(key = "#id")
+    fun updateById(id: Int, name: String?, city: String?): StreetDto =
+        StreetDto.fromEntity(streetRepository.save(
             findById(id).run {
                 Street(
                     id = this.id,
@@ -55,8 +62,8 @@ class StreetService(
                     lastModifiedAt = Instant.now(),
                 )
             }
-        )
-    }
+        ))
 
+    @CacheEvict(key = "#id")
     fun delete(id: Int) = streetRepository.deleteById(id)
 }

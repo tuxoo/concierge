@@ -29,11 +29,7 @@ class SectionService(
         throw NotFoundException("The section not found by id [$id]")
     }
 
-    fun update(
-        id: Int,
-        number: Int?,
-        floorNumber: Int?,
-    ) {
+    fun update(id: Int, number: Int?, floorNumber: Int?) = SectionDto.fromEntity(
         sectionRepository.save(
             findByIdOrThrow(id).run {
                 Section(
@@ -45,7 +41,7 @@ class SectionService(
                 )
             }
         )
-    }
+    )
 
     fun delete(id: Int) =
         findByIdOrThrow(id).run {

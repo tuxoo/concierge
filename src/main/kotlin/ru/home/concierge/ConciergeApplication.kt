@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import ru.home.concierge.config.property.ApplicationProperty
 import ru.home.concierge.config.property.LiquibaseProperty
 
+@EnableCaching
 @SpringBootApplication
 @EnableConfigurationProperties(
     ApplicationProperty::class,

@@ -39,7 +39,7 @@ class StreetController(
         @PathVariable id: Int,
         @RequestParam("name") name: String?,
         @RequestParam("city") city: String?,
-    ): Unit = streetService.updateById(id, name, city)
+    ): StreetDto = streetService.updateById(id, name, city)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

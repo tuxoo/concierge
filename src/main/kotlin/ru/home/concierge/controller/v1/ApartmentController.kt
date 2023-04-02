@@ -64,7 +64,7 @@ class ApartmentController(
         @RequestParam("owner") owner: String?,
         @RequestParam("phone") phone: String?,
         @RequestParam("type") type: String?,
-    ): Unit = apartmentService.updateById(dwellingId, id, number, owner, phone, type)
+    ): ApartmentDto = apartmentService.updateById(dwellingId, id, number, owner, phone, type)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

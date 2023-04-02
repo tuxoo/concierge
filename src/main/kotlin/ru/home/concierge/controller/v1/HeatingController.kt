@@ -54,5 +54,5 @@ class HeatingController(
         @PathVariable id: Int,
         @Valid @NotNull @RequestParam("apartmentId", required = true) apartmentId: Int?,
         @RequestParam("measure") measure: Double?,
-    ): Unit = heatingService.updateById(dwellingId, id, apartmentId!!, measure)
+    ): HeatingDto = heatingService.updateById(dwellingId, id, apartmentId!!, measure)
 }

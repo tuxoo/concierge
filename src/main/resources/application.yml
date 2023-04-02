@@ -29,6 +29,10 @@ spring:
     change-log: classpath:db/db.changelog.xml
     default-schema: ${POSTGRES_SCHEMA:concierge}
     contexts: test
+  cache:
+    cache-names: street, dwelling, apartment, city, apartment-type, year, month
+    caffeine:
+      spec: expireAfterWrite=8h
 
 springdoc:
   api-docs:

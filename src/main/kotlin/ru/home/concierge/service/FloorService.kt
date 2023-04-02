@@ -2,7 +2,6 @@ package ru.home.concierge.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import ru.home.concierge.model.dto.ApartmentDto
 import ru.home.concierge.model.dto.FloorDto
 import ru.home.concierge.model.entity.Floor
 import ru.home.concierge.model.exception.NotFoundException
@@ -37,8 +36,8 @@ class FloorService(
             NotFoundException("The floor not found by id [$id]")
         }
 
-    fun updateById(id: Int, apartmentNumber: Int?) {
-        floorRepository.save(
+    fun updateById(id: Int, apartmentNumber: Int?) =
+        FloorDto.fromEntity(floorRepository.save(
             findByIdOrThrow(id).run {
                 Floor(
                     id = this.id,
@@ -48,8 +47,7 @@ class FloorService(
                     section = this.section,
                 )
             }
-        )
-    }
+        ))
 
     fun delete(id: Int) =
         findByIdOrThrow(id).run {

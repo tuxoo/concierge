@@ -53,7 +53,7 @@ class DwellingController(
         @RequestParam("sectionNumber") sectionNumber: Int?,
         @RequestParam("startMeasuringDay") startMeasuringDay: Int?,
         @RequestParam("stopMeasuringDay") stopMeasuringDay: Int?,
-    ): Unit = dwellingService.update(id, sectionNumber, startMeasuringDay, stopMeasuringDay)
+    ): DwellingDto = dwellingService.update(id, sectionNumber, startMeasuringDay, stopMeasuringDay)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

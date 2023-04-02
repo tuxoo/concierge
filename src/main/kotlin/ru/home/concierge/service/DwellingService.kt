@@ -1,5 +1,9 @@
 package ru.home.concierge.service
 
+import org.springframework.cache.annotation.CacheConfig
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.CachePut
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -12,6 +16,7 @@ import ru.home.concierge.repository.specification.DwellingSpecification
 import java.time.Instant
 
 @Service
+@CacheConfig(cacheNames = ["dwelling"])
 class DwellingService(
     private val dwellingRepository: DwellingRepository,
     private val streetService: StreetService,
@@ -29,7 +34,7 @@ class DwellingService(
             DwellingDto.fromEntity(it)
         }
 
-
+    @Cacheable
     fun getById(id: Int): DwellingDto =
         findByIdOrThrow(id).run {
             DwellingDto.fromEntity(this)
@@ -39,13 +44,13 @@ class DwellingService(
         throw NotFoundException("The dwelling not found by id [$id]")
     }
 
+    @CachePut(key = "#id")
     fun update(
         id: Int,
         sectionNumber: Int?,
         startMeasuringDay: Int?,
         stopMeasuringDay: Int?
-    ) {
-        dwellingRepository.save(
+    ) = DwellingDto.fromEntity(dwellingRepository.save(
             findByIdOrThrow(id).run {
                 Dwelling(
                     id = this.id,
@@ -58,9 +63,9 @@ class DwellingService(
                     lastModifiedAt = Instant.now(),
                 )
             }
-        )
-    }
+        ))
 
+    @CacheEvict(key = "#id")
     fun delete(id: Int) =
         findByIdOrThrow(id).run {
             dwellingRepository.deleteById(this.id ?: id)

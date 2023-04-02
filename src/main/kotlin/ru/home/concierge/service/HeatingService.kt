@@ -3,15 +3,12 @@ package ru.home.concierge.service
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import ru.home.concierge.model.dto.ApartmentDto
-import ru.home.concierge.model.dto.ApartmentFilter
 import ru.home.concierge.model.dto.HeatingDto
 import ru.home.concierge.model.dto.HeatingFilter
 import ru.home.concierge.model.entity.Heating
 import ru.home.concierge.model.exception.BusinessLogicException
 import ru.home.concierge.model.exception.NotFoundException
 import ru.home.concierge.repository.HeatingRepository
-import ru.home.concierge.repository.specification.ApartmentSpecification
 import ru.home.concierge.repository.specification.HeatingSpecification
 import java.time.Instant
 import java.time.ZoneId
@@ -59,8 +56,8 @@ class HeatingService(
         apartmentService.findByDwellingIdAndIdOrThrow(dwellingId, apartmentId).heating.find { it.id == id }
             ?: throw NotFoundException("The Heating not found by id [$id] in apartment [$apartmentId]")
 
-    fun updateById(dwellingId: Int, id: Int, apartmentId: Int, measure: Double?) {
-        heatingRepository.save(
+    fun updateById(dwellingId: Int, id: Int, apartmentId: Int, measure: Double?) =
+        HeatingDto.fromEntity(heatingRepository.save(
             findById(dwellingId, apartmentId, id).run {
                 Heating(
                     id = this.id,
@@ -72,7 +69,6 @@ class HeatingService(
                     apartment = this.apartment,
                 )
             }
-        )
-    }
+        ))
 
 }

@@ -27,4 +27,15 @@ data class StreetDto(
         city = City.fromShortName(city!!),
         lastModifiedAt = Instant.now(),
     )
+
+    companion object {
+        fun fromEntity(street: Street) : StreetDto =
+            StreetDto(
+                id = street.id,
+                name = street.name,
+                city = street.city.getShortName(),
+                createdAt = street.createdAt,
+                lastModifiedAt = street.lastModifiedAt,
+            )
+    }
 }
