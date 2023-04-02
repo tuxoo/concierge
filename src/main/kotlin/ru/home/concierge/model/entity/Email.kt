@@ -20,6 +20,9 @@ class Email(
     @Column(name = "address", length = 255, nullable = false)
     val address: String,
 
+    @Column(name = "is_active", nullable = false)
+    val isActive: Boolean = true,
+
     @NotEmpty
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
