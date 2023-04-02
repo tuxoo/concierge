@@ -41,6 +41,7 @@ springdoc:
     path: /swagger-ui/v3/api-docs
   swagger-ui:
     path: /swagger-ui/swagger-ui.html
+  show-actuator: true
 
 management:
   endpoints:

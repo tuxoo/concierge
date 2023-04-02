@@ -35,4 +35,11 @@ class SwaggerConfig(
         .group("API")
         .pathsToMatch("/api/**")
         .build()
+
+    @Bean
+    fun actuatorApi(
+    ): GroupedOpenApi = GroupedOpenApi.builder()
+        .group("Actuator")
+        .pathsToMatch("/actuator/**")
+        .build()
 }
