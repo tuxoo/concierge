@@ -24,10 +24,12 @@ class ApartmentService(
     private val floorService: FloorService,
 ) {
 
-    fun create(dwellingId: Int, floorId: Int, apartmentDto: ApartmentDto) {
+    fun create(dwellingId: Int, floorId: Int, apartments: Array<ApartmentDto>) {
         val dwelling = dwellingService.findByIdOrThrow(dwellingId)
         floorService.findByIdOrThrow(floorId).run {
-            apartmentRepository.save(apartmentDto.toEntity(dwelling, this))
+            apartments.forEach {
+                apartmentRepository.save(it.toEntity(dwelling, this))
+            }
         }
     }
 

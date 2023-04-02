@@ -12,9 +12,11 @@ class SectionService(
     private val dwellingService: DwellingService,
 ) {
 
-    fun create(dwellingId: Int, sectionDto: SectionDto): Unit =
+    fun create(dwellingId: Int, sections: Array<SectionDto>): Unit =
         dwellingService.findByIdOrThrow(dwellingId).run {
-            sectionRepository.save(sectionDto.toEntity(this))
+            sections.forEach {
+                sectionRepository.save(it.toEntity(this))
+            }
         }
 
     fun getAll(dwellingId: Int): List<SectionDto> =

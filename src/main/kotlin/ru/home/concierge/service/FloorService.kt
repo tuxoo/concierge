@@ -14,9 +14,9 @@ class FloorService(
 ) {
 
     @Transactional
-    fun createAll(sectionId: Int, floorsDto: Array<FloorDto>): Unit =
+    fun createAll(sectionId: Int, floors: Array<FloorDto>): Unit =
         sectionService.findByIdOrThrow(sectionId).run {
-            floorsDto.forEach {
+            floors.forEach {
                 floorRepository.save(it.toEntity(this))
             }
         }

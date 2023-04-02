@@ -15,10 +15,10 @@ class SectionController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createSection(
+    fun createSections(
         @PathVariable dwellingId: Int,
-        @Valid @RequestBody sectionDto: SectionDto,
-    ): Unit = sectionService.create(dwellingId, sectionDto)
+        @Valid @RequestBody sections: Array<SectionDto>,
+    ): Unit = sectionService.create(dwellingId, sections)
 
     @GetMapping
     @PageableAsQueryParam

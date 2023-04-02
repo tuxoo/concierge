@@ -22,11 +22,11 @@ class ApartmentController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createApartment(
+    fun createApartments(
         @PathVariable dwellingId: Int,
         @Valid @NotNull @RequestParam("floorId", required = true) floorId: Int?,
-        @Valid @RequestBody apartmentDto: ApartmentDto,
-    ): Unit = apartmentService.create(dwellingId, floorId!!, apartmentDto)
+        @Valid @RequestBody apartments: Array<ApartmentDto>,
+    ): Unit = apartmentService.create(dwellingId, floorId!!, apartments)
 
     @GetMapping
     @PageableAsQueryParam

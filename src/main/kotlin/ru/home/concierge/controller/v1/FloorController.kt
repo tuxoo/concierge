@@ -16,8 +16,8 @@ class FloorController(
     @ResponseStatus(HttpStatus.CREATED)
     fun createFloors(
         @PathVariable sectionId: Int,
-        @Valid @RequestBody floorsDto: Array<FloorDto>,
-    ): Unit = floorService.createAll(sectionId, floorsDto)
+        @Valid @RequestBody floors: Array<FloorDto>,
+    ): Unit = floorService.createAll(sectionId, floors)
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
