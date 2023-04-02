@@ -50,10 +50,9 @@ class DwellingController(
     fun updateDwelling(
         @PathVariable streetId: Int,
         @PathVariable id: Int,
-        @RequestParam("sectionNumber") sectionNumber: Int?,
         @RequestParam("startMeasuringDay") startMeasuringDay: Int?,
         @RequestParam("stopMeasuringDay") stopMeasuringDay: Int?,
-    ): DwellingDto = dwellingService.update(id, sectionNumber, startMeasuringDay, stopMeasuringDay)
+    ): DwellingDto = dwellingService.update(id, startMeasuringDay, stopMeasuringDay)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

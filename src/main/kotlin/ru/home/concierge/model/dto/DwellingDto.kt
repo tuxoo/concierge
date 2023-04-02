@@ -17,10 +17,6 @@ data class DwellingDto(
 
     @field:NotNull
     @field:Min(1)
-    val sectionNumber: Int?,
-
-    @field:NotNull
-    @field:Min(1)
     @field:Max(31)
     val startMeasuringDay: Int?,
 
@@ -38,7 +34,6 @@ data class DwellingDto(
 
     fun toEntity(street: Street) = Dwelling(
         number = this.number!!,
-        sectionNumber = this.sectionNumber!!,
         startMeasuringDay = this.startMeasuringDay!!,
         stopMeasuringDay = this.stopMeasuringDay!!,
         lastModifiedAt = Instant.now(),
@@ -49,7 +44,6 @@ data class DwellingDto(
         fun fromEntity(dwelling: Dwelling) = DwellingDto(
             id = dwelling.id,
             number = dwelling.number,
-            sectionNumber = dwelling.sectionNumber,
             startMeasuringDay = dwelling.startMeasuringDay,
             stopMeasuringDay = dwelling.stopMeasuringDay,
             createdAt = dwelling.createdAt,

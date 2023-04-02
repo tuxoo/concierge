@@ -7,4 +7,41 @@
     <changeSet id="1680269461" author="tuxoo">
         <sqlFile path="sql/init.sql" relativeToChangelogFile="true"/>
     </changeSet>
+
+    <changeSet id="1680443384" author="tuxoo">
+        <addUniqueConstraint columnNames="name, city"
+                             constraintName="uc_name_city"
+                             tableName="street"/>
+    </changeSet>
+
+    <changeSet id="1680443461" author="tuxoo">
+        <addUniqueConstraint columnNames="street_id, number"
+                             constraintName="uc_street_id_number"
+                             tableName="dwelling"/>
+    </changeSet>
+
+    <changeSet id="1680443619" author="tuxoo">
+        <addUniqueConstraint columnNames="dwelling_id, number"
+                             constraintName="uc_dwelling_id_number"
+                             tableName="section"/>
+    </changeSet>
+
+    <changeSet id="1680443660" author="tuxoo">
+        <addUniqueConstraint columnNames="section_id, number"
+                             constraintName="uc_section_id_number"
+                             tableName="floor"/>
+    </changeSet>
+
+    <changeSet id="1680443718" author="tuxoo">
+        <addUniqueConstraint columnNames="dwelling_id, floor_id, number"
+                             constraintName="uc_dwelling_id_floor_id_number"
+                             tableName="apartment"/>
+    </changeSet>
+
+    <changeSet id="1680443785" author="tuxoo">
+        <addUniqueConstraint columnNames="apartment_id, year_id, month_id"
+                             constraintName="uc_apartment_id_year_id_month_id"
+                             tableName="heating"/>
+    </changeSet>
+
 </databaseChangeLog>

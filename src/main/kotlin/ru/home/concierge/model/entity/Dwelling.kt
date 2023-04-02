@@ -24,10 +24,6 @@ class Dwelling(
     val number: String,
 
     @Min(1)
-    @Column(name = "section_number", nullable = false)
-    val sectionNumber: Int,
-
-    @Min(1)
     @Max(31)
     @NotNull
     @Column(name = "start_measuring_day", nullable = false)

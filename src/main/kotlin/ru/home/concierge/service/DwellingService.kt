@@ -47,7 +47,6 @@ class DwellingService(
     @CachePut(key = "#id")
     fun update(
         id: Int,
-        sectionNumber: Int?,
         startMeasuringDay: Int?,
         stopMeasuringDay: Int?
     ) = DwellingDto.fromEntity(dwellingRepository.save(
@@ -55,7 +54,6 @@ class DwellingService(
                 Dwelling(
                     id = this.id,
                     number = this.number,
-                    sectionNumber = sectionNumber ?: this.sectionNumber,
                     startMeasuringDay = startMeasuringDay ?: this.startMeasuringDay,
                     stopMeasuringDay = stopMeasuringDay ?: this.stopMeasuringDay,
                     createdAt = this.createdAt,
