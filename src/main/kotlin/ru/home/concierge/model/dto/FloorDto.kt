@@ -9,13 +9,11 @@ import javax.validation.constraints.NotNull
 data class FloorDto(
     val id: Int?,
 
-    @field:NotNull
-    @field:NotEmpty
-    val number: Int?,
+    val section: Int?,
 
     @field:NotNull
     @field:NotEmpty
-    val apartmentNumber: Int?,
+    val number: Int?,
 
     val createdAt: Instant?,
 
@@ -24,7 +22,6 @@ data class FloorDto(
 
     fun toEntity(section: Section) = Floor(
         number = this.number!!,
-        apartmentNumber = this.apartmentNumber!!,
         section = section,
     )
 
@@ -32,8 +29,8 @@ data class FloorDto(
         fun fromEntity(floor: Floor) =
             FloorDto(
                 id = floor.id,
+                section = floor.section.number,
                 number = floor.number,
-                apartmentNumber = floor.apartmentNumber,
                 createdAt = floor.createdAt,
                 apartments = floor.apartments.map { apartment ->
                     ApartmentDto.fromEntity(apartment)

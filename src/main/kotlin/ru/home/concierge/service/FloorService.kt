@@ -36,13 +36,12 @@ class FloorService(
             NotFoundException("The floor not found by id [$id]")
         }
 
-    fun updateById(id: Int, apartmentNumber: Int?) =
+    fun updateById(id: Int, number: Int?) =
         FloorDto.fromEntity(floorRepository.save(
             findByIdOrThrow(id).run {
                 Floor(
                     id = this.id,
-                    number = this.number,
-                    apartmentNumber = apartmentNumber ?: this.apartmentNumber,
+                    number = number ?: this.number,
                     createdAt = this.createdAt,
                     section = this.section,
                 )

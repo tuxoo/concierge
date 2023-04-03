@@ -40,8 +40,7 @@ class SectionController(
         @PathVariable dwellingId: Int,
         @PathVariable id: Int,
         @RequestParam("number") number: Int?,
-        @RequestParam("floorNumber") floorNumber: Int?,
-    ): SectionDto = sectionService.update(id, number, floorNumber)
+    ): SectionDto = sectionService.update(id, number)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

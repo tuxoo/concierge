@@ -11,6 +11,8 @@ import javax.validation.constraints.NotNull
 data class DwellingDto(
     val id: Int?,
 
+    val street: String?,
+
     @field:NotNull
     @field:NotEmpty
     val number: String?,
@@ -43,6 +45,7 @@ data class DwellingDto(
     companion object {
         fun fromEntity(dwelling: Dwelling) = DwellingDto(
             id = dwelling.id,
+            street = dwelling.street.name,
             number = dwelling.number,
             startMeasuringDay = dwelling.startMeasuringDay,
             stopMeasuringDay = dwelling.stopMeasuringDay,

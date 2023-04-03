@@ -18,9 +18,6 @@ class Floor(
     @Column(name = "number", nullable = false)
     val number: Int,
 
-    @Column(name = "apartment_number", nullable = false)
-    val apartmentNumber: Int,
-
     @Column(name = "created_at", updatable = false, nullable = false)
     val createdAt: Instant? = null,
 

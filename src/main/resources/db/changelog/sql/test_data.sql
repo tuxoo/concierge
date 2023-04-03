@@ -34,144 +34,207 @@ VALUES ('13', now(), 10, 19, now(), 3);
 
 -- section
 
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (1, now(), 25, 1);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (2, now(), 25, 1);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (1, now(), 1);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (2, now(), 1);
 
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (1, now(), 9, 2);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (2, now(), 9, 2);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (3, now(), 9, 2);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (4, now(), 9, 2);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (5, now(), 9, 2);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (6, now(), 9, 2);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (7, now(), 9, 2);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (8, now(), 9, 2);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (9, now(), 9, 2);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (10, now(), 9, 2);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (1, now(), 2);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (2, now(), 2);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (3, now(), 2);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (4, now(), 2);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (5, now(), 2);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (6, now(), 2);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (7, now(), 2);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (8, now(), 2);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (9, now(), 2);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (10, now(), 2);
 
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (1, now(), 5, 3);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (2, now(), 5, 3);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (3, now(), 5, 3);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (4, now(), 5, 3);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (5, now(), 5, 3);
-INSERT INTO section (number, created_at, floor_number, dwelling_id)
-VALUES (6, now(), 5, 3);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (1, now(), 3);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (2, now(), 3);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (3, now(), 3);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (4, now(), 3);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (5, now(), 3);
+INSERT INTO section (number, created_at, dwelling_id)
+VALUES (6, now(), 3);
 
 -- floor
 
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (1, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (2, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (3, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (4, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (5, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (6, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (7, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (8, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (9, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (10, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (11, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (12, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (13, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (14, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (15, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (16, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (17, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (18, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (19, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (20, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (21, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (22, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (23, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (24, 6, now(), 2);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (25, 6, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (1, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (2, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (3, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (4, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (5, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (6, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (7, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (8, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (9, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (10, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (11, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (12, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (13, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (14, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (15, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (16, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (17, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (18, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (19, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (20, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (21, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (22, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (23, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (24, now(), 1);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (25, now(), 1);
 
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (1, 4, now(), 7);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (2, 4, now(), 7);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (3, 4, now(), 7);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (4, 4, now(), 7);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (5, 4, now(), 7);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (6, 4, now(), 7);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (7, 4, now(), 7);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (8, 4, now(), 7);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (9, 4, now(), 7);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (1, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (2, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (3, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (4, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (5, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (6, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (7, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (8, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (9, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (10, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (11, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (12, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (13, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (14, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (15, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (16, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (17, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (18, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (19, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (20, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (21, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (22, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (23, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (24, now(), 2);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (25, now(), 2);
 
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (1, 3, now(), 15);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (2, 3, now(), 15);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (3, 3, now(), 15);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (4, 3, now(), 15);
-INSERT INTO floor (number, apartment_number, created_at, section_id)
-VALUES (5, 3, now(), 15);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (1, now(), 7);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (2, now(), 7);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (3, now(), 7);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (4, now(), 7);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (5, now(), 7);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (6, now(), 7);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (7, now(), 7);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (8, now(), 7);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (9, now(), 7);
+
+INSERT INTO floor (number, created_at, section_id)
+VALUES (1, now(), 14);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (2, now(), 14);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (3, now(), 14);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (4, now(), 14);
+INSERT INTO floor (number, created_at, section_id)
+VALUES (5, now(), 14);
 
 -- apartment
 
 INSERT INTO apartment (number, type, owner, phone, created_at, last_modified_at, dwelling_id, floor_id)
-VALUES (124, 'TWO_ROOM_APARTMENT', 'Кривцов Евгений Алексеевич', '', now(), now(), 1, 11);
+VALUES (121, 'THREE_ROOM_APARTMENT', '', '', now(), now(), 1, 36);
+INSERT INTO apartment (number, type, owner, phone, created_at, last_modified_at, dwelling_id, floor_id)
+VALUES (122, 'ONE_ROOM_APARTMENT', '', '', now(), now(), 1, 36);
+INSERT INTO apartment (number, type, owner, phone, created_at, last_modified_at, dwelling_id, floor_id)
+VALUES (123, 'ONE_ROOM_APARTMENT', '', '', now(), now(), 1, 36);
+INSERT INTO apartment (number, type, owner, phone, created_at, last_modified_at, dwelling_id, floor_id)
+VALUES (124, 'TWO_ROOM_APARTMENT', 'Кривцов Евгений Алексеевич', '', now(), now(), 1, 36);
+INSERT INTO apartment (number, type, owner, phone, created_at, last_modified_at, dwelling_id, floor_id)
+VALUES (125, 'ONE_ROOM_APARTMENT', '', '', now(), now(), 1, 36);
+INSERT INTO apartment (number, type, owner, phone, created_at, last_modified_at, dwelling_id, floor_id)
+VALUES (126, 'ONE_ROOM_APARTMENT', '', '', now(), now(), 1, 36);
 
 INSERT INTO apartment (number, type, owner, phone, created_at, last_modified_at, dwelling_id, floor_id)
-VALUES (163, 'TWO_ROOM_APARTMENT', 'Кривцов Алексей Иванович', '', now(), now(), 2, 29);
+VALUES (162, 'THREE_ROOM_APARTMENT', '', '', now(), now(), 2, 54);
+INSERT INTO apartment (number, type, owner, phone, created_at, last_modified_at, dwelling_id, floor_id)
+VALUES (163, 'TWO_ROOM_APARTMENT', 'Кривцов Алексей Иванович', '', now(), now(), 2, 54);
 
 INSERT INTO apartment (number, type, owner, phone, created_at, last_modified_at, dwelling_id, floor_id)
-VALUES (23, 'TWO_ROOM_APARTMENT', 'Кривцова Марина Владимировна', '', now(), now(), 3, 38);
+VALUES (23, 'TWO_ROOM_APARTMENT', 'Кривцова Марина Владимировна', '', now(), now(), 3, 63);
 
 -- heating
 
 INSERT INTO heating (measure, created_at, last_modified_at, dwelling_id, apartment_id, month_id, year_id)
-VALUES (15.0, now(), now(), 1, 1, 1, 2023);
+VALUES (15.0, now(), now(), 1, 4, 1, 2023);
 INSERT INTO heating (measure, created_at, last_modified_at, dwelling_id, apartment_id, month_id, year_id)
-VALUES (15.8, now(), now(), 1, 1, 2, 2023);
+VALUES (15.8, now(), now(), 1, 4, 2, 2023);
 INSERT INTO heating (measure, created_at, last_modified_at, dwelling_id, apartment_id, month_id, year_id)
-VALUES (16.1, now(), now(), 1, 1, 3, 2023);
+VALUES (16.1, now(), now(), 1, 4, 3, 2023);

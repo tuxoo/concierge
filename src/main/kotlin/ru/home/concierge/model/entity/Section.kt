@@ -19,10 +19,6 @@ class Section(
     @Column(name = "number", nullable = false)
     val number: Int,
 
-    @Min(1)
-    @Column(name = "floor_number", nullable = false)
-    val floorNumber: Int,
-
     @Column(name = "created_at", updatable = false, nullable = false)
     val createdAt: Instant? = null,
 

@@ -13,10 +13,6 @@ data class SectionDto(
     @field:Min(1)
     val number: Int?,
 
-    @field:NotNull
-    @field:Min(1)
-    val floorNumber: Int?,
-
     val createdAt: Instant?,
 
     val floors: List<FloorDto>?,
@@ -24,7 +20,6 @@ data class SectionDto(
 
     fun toEntity(dwelling: Dwelling) = Section(
         number = this.number!!,
-        floorNumber = this.floorNumber!!,
         dwelling = dwelling,
     )
 
@@ -33,7 +28,6 @@ data class SectionDto(
             SectionDto(
                 id = section.id,
                 number = section.number,
-                floorNumber = section.floorNumber,
                 createdAt = section.createdAt,
                 floors = section.floors.map { floor ->
                     FloorDto.fromEntity(floor)

@@ -37,8 +37,8 @@ class FloorController(
     fun updateDwelling(
         @PathVariable sectionId: Int,
         @PathVariable id: Int,
-        @RequestParam("apartmentNumber") apartmentNumber: Int?,
-    ): FloorDto = floorService.updateById(id, apartmentNumber)
+        @RequestParam("number") number: Int?,
+    ): FloorDto = floorService.updateById(id, number)
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
