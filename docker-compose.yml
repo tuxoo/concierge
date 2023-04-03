@@ -3,7 +3,7 @@ version: "3.8"
 services:
   postgres-concierge:
     container_name: postgres-concierge
-    image: postgres:${POSTGRES_VERSION}
+    image: postgres:15.2
     restart: on-failure
     env_file:
       - .env
