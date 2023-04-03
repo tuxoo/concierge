@@ -28,7 +28,7 @@ spring:
     enabled: true
     change-log: classpath:db/db.changelog.xml
     default-schema: ${POSTGRES_SCHEMA:concierge}
-    contexts: test
+    contexts: ${LIQUIBASE_CONTEXT:}
   cache:
     cache-names: street, dwelling, apartment, city, apartment-type, year, month
     caffeine:
