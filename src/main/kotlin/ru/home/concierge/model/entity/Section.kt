@@ -24,7 +24,7 @@ class Section(
     val floorNumber: Int,
 
     @Column(name = "created_at", updatable = false, nullable = false)
-    val createdAt: Instant = Instant.now(),
+    val createdAt: Instant? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dwelling_id", nullable = false)

@@ -29,7 +29,7 @@ data class StreetDto(
     )
 
     companion object {
-        fun fromEntity(street: Street) : StreetDto =
+        fun fromEntity(street: Street): StreetDto =
             StreetDto(
                 id = street.id,
                 name = street.name,

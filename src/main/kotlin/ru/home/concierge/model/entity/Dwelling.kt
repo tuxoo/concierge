@@ -36,7 +36,7 @@ class Dwelling(
     val stopMeasuringDay: Int,
 
     @Column(name = "created_at", updatable = false, nullable = false)
-    val createdAt: Instant = Instant.now(),
+    val createdAt: Instant? = null,
 
     @Column(name = "last_modified_at", nullable = false)
     val lastModifiedAt: Instant,

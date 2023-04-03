@@ -4,7 +4,6 @@ import ru.home.concierge.model.entity.Dwelling
 import ru.home.concierge.model.entity.Section
 import java.time.Instant
 import javax.validation.constraints.Min
-import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
 data class SectionDto(

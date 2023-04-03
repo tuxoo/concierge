@@ -22,7 +22,7 @@ class Floor(
     val apartmentNumber: Int,
 
     @Column(name = "created_at", updatable = false, nullable = false)
-    val createdAt: Instant = Instant.now(),
+    val createdAt: Instant? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id", nullable = false)

@@ -6,7 +6,6 @@ import ru.home.concierge.model.enums.ApartmentType
 import java.time.Instant
 import javax.persistence.*
 import javax.validation.constraints.Min
-import javax.validation.constraints.NotEmpty
 
 @Getter
 @Setter
@@ -33,7 +32,7 @@ class Apartment(
     val phone: String? = null,
 
     @Column(name = "created_at", updatable = false, nullable = false)
-    val createdAt: Instant = Instant.now(),
+    val createdAt: Instant? = null,
 
     @Column(name = "last_modified_at", nullable = false)
     val lastModifiedAt: Instant,

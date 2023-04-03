@@ -50,18 +50,18 @@ class DwellingService(
         startMeasuringDay: Int?,
         stopMeasuringDay: Int?
     ) = DwellingDto.fromEntity(dwellingRepository.save(
-            findByIdOrThrow(id).run {
-                Dwelling(
-                    id = this.id,
-                    number = this.number,
-                    startMeasuringDay = startMeasuringDay ?: this.startMeasuringDay,
-                    stopMeasuringDay = stopMeasuringDay ?: this.stopMeasuringDay,
-                    createdAt = this.createdAt,
-                    street = this.street,
-                    lastModifiedAt = Instant.now(),
-                )
-            }
-        ))
+        findByIdOrThrow(id).run {
+            Dwelling(
+                id = this.id,
+                number = this.number,
+                startMeasuringDay = startMeasuringDay ?: this.startMeasuringDay,
+                stopMeasuringDay = stopMeasuringDay ?: this.stopMeasuringDay,
+                createdAt = this.createdAt,
+                street = this.street,
+                lastModifiedAt = Instant.now(),
+            )
+        }
+    ))
 
     @CacheEvict(key = "#id")
     fun delete(id: Int) =

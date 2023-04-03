@@ -24,7 +24,7 @@ class Street(
     val city: City,
 
     @Column(name = "created_at", updatable = false)
-    val createdAt: Instant = Instant.now(),
+    val createdAt: Instant? = null,
 
     @Column(name = "last_modified_at")
     val lastModifiedAt: Instant,

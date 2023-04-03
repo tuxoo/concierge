@@ -1,6 +1,5 @@
 package ru.home.concierge.service
 
-import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import ru.home.concierge.model.dto.MonthDto

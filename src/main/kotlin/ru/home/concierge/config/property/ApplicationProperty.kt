@@ -6,6 +6,6 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConstructorBinding
 @ConfigurationProperties(prefix = "application")
 data class ApplicationProperty(
-    val url : String,
-    val apiPath : String,
+    val url: String,
+    val apiPath: String,
 )

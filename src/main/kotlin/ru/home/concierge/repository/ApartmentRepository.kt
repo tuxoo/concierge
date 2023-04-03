@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.stereotype.Repository
 import ru.home.concierge.model.entity.Apartment
 import ru.home.concierge.model.entity.Dwelling
-import ru.home.concierge.model.entity.Street
 
 @Repository
 interface ApartmentRepository : JpaRepository<Apartment, Int>, JpaSpecificationExecutor<Apartment> {

@@ -30,7 +30,7 @@ class User(
     val passwordHash: String,
 
     @Column(name = "registered_at", updatable = false, nullable = false)
-    val registeredAt: Instant = Instant.now(),
+    val registeredAt: Instant? = null,
 
     @Column(name = "visited_at", nullable = false)
     val visitedAt: Instant,

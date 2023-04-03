@@ -4,7 +4,6 @@ import lombok.Getter
 import lombok.Setter
 import java.time.Instant
 import javax.persistence.*
-import javax.validation.constraints.NotEmpty
 
 @Getter
 @Setter
@@ -20,7 +19,7 @@ class Heating(
     val measure: Double,
 
     @Column(name = "created_at", updatable = false, nullable = false)
-    val createdAt: Instant = Instant.now(),
+    val createdAt: Instant? = null,
 
     @Column(name = "last_modified_at", nullable = false)
     val lastModifiedAt: Instant,
